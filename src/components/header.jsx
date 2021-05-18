@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import {Menu, MenuItem} from "@material-ui/core";
+import {Badge, Menu, MenuItem} from "@material-ui/core";
 import {MoreVert} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 export default function Header(props) {
     const classes = useStyles();
     const [showMenuEl, setMenuVisibility] = useState(null);
@@ -67,6 +68,7 @@ export default function Header(props) {
     const imageSource = props.config.imageSource;
     const title = props.config.title;
     const links = props.config.links;
+    const badges = props.config.badges;
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -76,6 +78,17 @@ export default function Header(props) {
                         <span className="p-2"><img src={imageSource.default} alt='logo'/></span>
                         <span className="p-2">{title}</span>
                     </Typography>
+                    {
+                        badges.map((badge, idx) => {
+                            const IconName = badge.name;
+                            return (
+                                <IconButton color="inherit" key={idx} onClick={badge.onCartClick}>
+                                    <Badge badgeContent={badge.number} color="secondary">
+                                        <IconName/>
+                                    </Badge>
+                                </IconButton>)
+                        })
+                    }
                     {
                         <Menu anchorEl={showMenuEl}
                               keepMounted
