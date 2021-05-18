@@ -1,13 +1,10 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import logo from '../assets/logo.svg'
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import {Menu, MenuItem} from "@material-ui/core";
 import {MoreVert} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,27 +17,90 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(3),
+            width: 'auto',
+        },
+    },
+    searchIcon: {
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputRoot: {
+        color: 'inherit',
+    },
+    inputInput: {
+        padding: theme.spacing(1, 1, 1, 0),
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: '20ch',
+        },
+    }
 }));
 
 export default function Header(props) {
     const classes = useStyles();
+    const [showMenuEl, setMenuVisibility] = useState(null);
+    const openMenu = (event) => {
+        setMenuVisibility(event.currentTarget);
+    };
+    const closeMenu = () => {
+        setMenuVisibility(null);
+    };
     const imageSource = props.config.imageSource;
     const title = props.config.title;
+    const links = props.config.links;
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon/>
-                    </IconButton>
+
                     <Typography variant="h6" className={classes.title}>
-                        <span className="px-lg-2 px-sm-1"><img src={imageSource.default} alt='logo'/></span>
-                        <span className="px-lg-2 px-sm-1">{title}</span>
+                        <span className="p-2"><img src={imageSource.default} alt='logo'/></span>
+                        <span className="p-2">{title}</span>
                     </Typography>
-                    <IconButton
-                        aria-label="more-setting"
-                        color="inherit"
-                    >
+                    {
+                        <Menu anchorEl={showMenuEl}
+                              keepMounted
+                              open={Boolean(showMenuEl)}
+                              onClose={closeMenu}>{
+                            links.map((link, idx) => (
+                                <MenuItem key={idx}>
+                                    <Typography className={classes.menuButton} color="inherit"
+                                                aria-label="menu" onClick={closeMenu}>
+                                        {link}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    }
+                    {links.map((link, idx) => (
+                        <MenuItem key={idx} className={'d-none d-lg-flex'} color={'inherit'}>
+                            <Typography className={classes.menuButton} color="inherit"
+                                        aria-label="menu" onClick={closeMenu}>
+                                {link}
+                            </Typography>
+                        </MenuItem>
+                    ))}
+                    <IconButton edge="start" className={`${classes.menuButton}  d-lg-none`} color="inherit"
+                                aria-label="menu" onClick={openMenu}>
                         <MoreVert/>
                     </IconButton>
                 </Toolbar>
