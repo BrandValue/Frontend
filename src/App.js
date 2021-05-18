@@ -4,23 +4,23 @@ import LoggedInHeader from "./components/loggedInHeader";
 class MenuItem {
     constructor(value, action) {
         this.value = value;
-        this.action = action
+        this.action = action;
     }
 }
 
 const login = () => {
-    console.log("Login clicked");
+    alert("Login");
 }
 
 const signup = () => {
-    console.log("Signup clicked");
+    alert("Signup");
 }
 
 function App() {
     const config = {
         title: `Let's eat`,
         imageSource: require('../src/assets/logo.svg'),
-        links: ['log in', 'Sign up']
+        links: [new MenuItem('Log in', login), new MenuItem('Sign up', signup)],
     }
     return (
         <>

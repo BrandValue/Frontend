@@ -84,18 +84,25 @@ export default function Header(props) {
                             links.map((link, idx) => (
                                 <MenuItem key={idx}>
                                     <Typography className={classes.menuButton} color="inherit"
-                                                aria-label="menu" onClick={closeMenu}>
-                                        {link}
+                                                aria-label="menu" onClick={() => {
+                                        closeMenu()
+                                        link.action();
+                                    }}>
+                                        {link.value}
                                     </Typography>
                                 </MenuItem>
-                            ))}
+                            ))
+                        }
                         </Menu>
                     }
                     {links.map((link, idx) => (
                         <MenuItem key={idx} className={'d-none d-lg-flex'} color={'inherit'}>
                             <Typography className={classes.menuButton} color="inherit"
-                                        aria-label="menu" onClick={closeMenu}>
-                                {link}
+                                        aria-label="menu" onClick={() => {
+                                closeMenu()
+                                link.action();
+                            }}>
+                                {link.value}
                             </Typography>
                         </MenuItem>
                     ))}
