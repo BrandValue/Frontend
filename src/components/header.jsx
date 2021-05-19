@@ -92,6 +92,9 @@ export default function Header(props) {
                     {
                         <Menu anchorEl={showMenuEl}
                               keepMounted
+                              getContentAnchorEl={null}
+                              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                              transformOrigin={{ vertical: "top", horizontal: "center" }}
                               open={Boolean(showMenuEl)}
                               onClose={closeMenu}>{
                             links.map((link, idx) => (
