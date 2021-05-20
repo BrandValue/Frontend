@@ -3,6 +3,7 @@ import BackGround from "../assets/backgroundImages/background.jpg"
 import {Box, IconButton, OutlinedInput, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
+import Neon from "./NeonEffect/Neon";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     textGroup: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: "230px",
         paddingLeft: "15px",
         paddingRight: "15px",
         [theme.breakpoints.down('sm')]: {
@@ -62,19 +62,28 @@ const useStyles = makeStyles((theme) => ({
 
 function Body() {
     const classes = useStyles();
+    const neonTextLst = ['People are ordering Burgers.', "Try out today's special", "We are good in Kadhai Paneer"];
+    let neonText;
+    neonText = neonTextLst[Math.floor(Math.random() * 10 % neonTextLst.length)];
+    setInterval(() => {
+        neonText = neonTextLst[Math.floor(Math.random() * 10 % neonTextLst.length)];
+    }, 1000);
     return (
         <div className={`${classes.root}`}>
             <Box display="flex">
                 <Box flexGrow={1} className={classes.textGroup}>
-                    <OutlinedInput
-                        placeholder="Start eating…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{'aria-label': 'search'}}
-                        endAdornment={<IconButton position="end"><SearchIcon/></IconButton>}
-                    />
+                    <Neon text={neonText}/>
+                    <Box style={{paddingTop: "10px"}}>
+                        <OutlinedInput
+                            placeholder="Start eating…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{'aria-label': 'search'}}
+                            endAdornment={<IconButton position="end"><SearchIcon/></IconButton>}
+                        />
+                    </Box>
                 </Box>
                 <Box className={classes.paper}>
                     <Paper className={classes.paperContainer}/>
