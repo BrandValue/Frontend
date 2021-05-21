@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import BackGround from "../assets/backgroundImages/background.jpg"
 import {Box, IconButton, OutlinedInput, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
@@ -58,21 +58,36 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    textBubble: {
+        height: "auto",
+        [theme.breakpoints.down('md')]: {
+            height: 'auto',
+        },
+    },
+    textInside: {
+        marginTop: "300px",
+        [theme.breakpoints.down('md')]: {
+            marginTop: '20px',
+        },
+        fontSize: 30,
+        fontWeight: "bolder",
+        fontFamily: "sans-serif Roboto monospace",
+
+    }
 }));
 
 function Body() {
+    const text = 'Delicious food just a tap away';
     const classes = useStyles();
-    const neonTextLst = ['People are ordering Burgers.', "Try out today's special", "We are good in Kadhai Paneer"];
-    let neonText;
-    neonText = neonTextLst[Math.floor(Math.random() * 10 % neonTextLst.length)];
-    setInterval(() => {
-        neonText = neonTextLst[Math.floor(Math.random() * 10 % neonTextLst.length)];
-    }, 1000);
     return (
         <div className={`${classes.root}`}>
             <Box display="flex">
                 <Box flexGrow={1} className={classes.textGroup}>
-                    <Neon text={neonText}/>
+                    <Box className={classes.textBubble}>
+                        <Box className={classes.textInside}>
+                            {text}
+                        </Box>
+                    </Box>
                     <Box style={{paddingTop: "10px"}}>
                         <OutlinedInput
                             placeholder="Start eating…"
