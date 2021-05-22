@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -30,8 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ImageGridList({tileData}) {
+export default function ImageGridList(props) {
     const classes = useStyles();
+    const tileData = props.tileData;
+
     return (
         <div className={classes.root}>
             <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>

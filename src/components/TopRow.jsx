@@ -1,15 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import BackGround from "../assets/backgroundImages/background.jpg"
 import {Box, IconButton, OutlinedInput, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import ImageGridList from "./ImageGridList";
-import image1 from '../assets/images/image1.jpg'
-import image2 from '../assets/images/image2.jpg'
-import image3 from '../assets/images/image3.jpg'
-import image5 from '../assets/images/image5.jpg'
-import image6 from '../assets/images/image6.jpg'
-import image7 from '../assets/images/image7.jpg'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,48 +75,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const tileData = [
-    {
-        img: image1,
-        title: 'Image',
-        author: 'author',
-        featured: true
-    },
-    {
-        img: image2,
-        title: 'Image',
-        author: 'author',
-        featured: false
-    },
-    {
-        img: image5,
-        title: 'Image',
-        author: 'author',
-        featured: true
-    },
-    {
-        img: image6,
-        title: 'Image',
-        author: 'author',
-        featured: true
-    },
-    {
-        img: image7,
-        title: 'Image',
-        author: 'author',
-        featured: true
-    },
-    {
-        img: image3,
-        title: 'Image',
-        author: 'author',
-        featured: true
-    }
-];
-
 function TopRow() {
     const text = 'Delicious food just a tap away';
     const classes = useStyles();
+    const [tileData, setTileData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000').then(resp => resp.json()).then(data => setTileData(data));
+    });
     return (
         <div className={`${classes.root}`}>
             <Box display="flex">
