@@ -1,14 +1,12 @@
-import LoggedInHeader from "./components/loggedInHeader";
 import Header from "./components/header";
-import Body from "./components/Body"
+import TopRow from "./components/TopRow"
 
 function App() {
 
     return (
         <>
             <Header/>
-            <LoggedInHeader/>
-            <Body/>
+            <TopRow/>
         </>
     );
 }
