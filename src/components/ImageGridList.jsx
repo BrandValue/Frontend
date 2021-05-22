@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -6,6 +6,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,13 +34,15 @@ const useStyles = makeStyles((theme) => ({
 export default function ImageGridList(props) {
     const classes = useStyles();
     const tileData = props.tileData;
-
+    const loading = props.loading;
+    console.log(loading);
     return (
         <div className={classes.root}>
             <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>
                 {tileData.map((tile) => (
                     <GridListTile key={tile.img}>
-                        <img src={tile.img} alt={tile.title} width={'100%'} height={'auto'}/>
+                        {(loading ? (<Skeleton width="500px" height="500px"/>) :
+                            (<img src={tile.img} alt={tile.title} width={'100%'} height={'auto'}/>))}
                         <GridListTileBar
                             title={tile.title}
                             titlePosition="top"

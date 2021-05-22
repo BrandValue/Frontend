@@ -4,6 +4,7 @@ import {Box, IconButton, OutlinedInput, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import ImageGridList from "./ImageGridList";
+import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,15 +80,21 @@ function TopRow() {
     const text = 'Delicious food just a tap away';
     const classes = useStyles();
     const [tileData, setTileData] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch('http://localhost:5000').then(resp => resp.json()).then(data => setTileData(data));
-    });
+        let mounted = true;
+        fetch('http://localhost:5000').then(resp => resp.json()).then(data => {
+            setTileData(data);
+            setLoading(false);
+        });
+        return () => mounted = false;
+    }, []);
     return (
         <div className={`${classes.root}`}>
             <Box display="flex">
                 <Box flexGrow={1} className={classes.textGroup}>
                     <Box className={classes.textBubble}>
-                        <ImageGridList tileData={tileData}/>
+                        <ImageGridList tileData={tileData} loading={loading}/>
                         <Box className={classes.textInside}>
                             {text}
                         </Box>
