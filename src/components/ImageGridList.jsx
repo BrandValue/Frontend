@@ -56,7 +56,7 @@ export default function ImageGridList(props) {
                                                 }
                                                 }>
                                         {
-                                            tile.featured ? (<StarIcon/>) : (<StarBorderIcon/>)
+                                            tile.favorite ? (<StarIcon/>) : (<StarBorderIcon/>)
                                         }
                                     </IconButton>
                                 }

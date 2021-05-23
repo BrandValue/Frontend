@@ -90,7 +90,7 @@ function TopRow() {
     const btn = (id) => {
         setTileData(tileData.filter((tile, idx, arr) => {
             if (tile.id === id) {
-                arr[idx].featured = !arr[idx].featured;
+                arr[idx].favorite = !arr[idx].favorite;
             }
             return true;
         }));
