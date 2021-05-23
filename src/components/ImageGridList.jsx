@@ -41,7 +41,7 @@ export default function ImageGridList(props) {
     }, [props.tileData]);
     return (
         <div className={classes.root}>
-            {loading ? (<Skeleton className={classes.gridList}/>) : (
+            {loading ? (<Skeleton className={classes.gridList} animation="wave"/>) : (
                 <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>
                     {tileData.map((tile) => (
                         <GridListTile key={tile.img}>

@@ -72,12 +72,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 30,
         fontWeight: "bolder",
         fontFamily: "sans-serif Roboto monospace",
-
     }
 }));
 
 function TopRow() {
-    const text = 'Delicious food just a tap away';
+    const [text, setText] = useState('Delicious food just a tap away');
     const classes = useStyles();
     const [tileData, setTileData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -85,7 +84,14 @@ function TopRow() {
         getRequest('').then(({data}) => {
             setTileData(data);
             setLoading(false);
-        })
+        });
+    }, []);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const texts = ['Hungry?', 'Try out today\'s special.', 'Don\'t want to cook?', 'No time for cooking?'];
+            const idx = Math.floor((Math.random() * 10) % texts.length);
+            setText(texts[idx]);
+        }, 10000);
     }, []);
     const btn = (id) => {
         setTileData(tileData.filter((tile, idx, arr) => {
