@@ -4,7 +4,7 @@ import {Box, IconButton, OutlinedInput, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from '@material-ui/icons/Search';
 import ImageGridList from "./ImageGridList";
-import {Skeleton} from "@material-ui/lab";
+import {getRequest} from '../services/APIEndpoints';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,19 +82,25 @@ function TopRow() {
     const [tileData, setTileData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        let mounted = true;
-        fetch('http://localhost:5000').then(resp => resp.json()).then(data => {
+        getRequest('').then(({data}) => {
             setTileData(data);
             setLoading(false);
-        });
-        return () => mounted = false;
+        })
     }, []);
+    const btn = (id) => {
+        setTileData(tileData.filter((tile, idx, arr) => {
+            if (tile.id === id) {
+                arr[idx].featured = !arr[idx].featured;
+            }
+            return true;
+        }));
+    }
     return (
         <div className={`${classes.root}`}>
             <Box display="flex">
                 <Box flexGrow={1} className={classes.textGroup}>
                     <Box className={classes.textBubble}>
-                        <ImageGridList tileData={tileData} loading={loading}/>
+                        <ImageGridList tileData={tileData} loading={loading} favouriteHandler={btn}/>
                         <Box className={classes.textInside}>
                             {text}
                         </Box>

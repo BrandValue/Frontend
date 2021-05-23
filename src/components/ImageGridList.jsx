@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -33,8 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ImageGridList(props) {
     const classes = useStyles();
-    const [tileData, setTileData] = useState(props.tileData);
     const loading = props.loading;
+    const [tileData, setTileData] = useState(props.tileData);
+    const favoriteHandler = props.favouriteHandler;
+    useEffect(() => {
+        setTileData(props.tileData);
+    }, [props.tileData]);
     return (
         <div className={classes.root}>
             {loading ? (<Skeleton className={classes.gridList}/>) : (
@@ -46,7 +50,11 @@ export default function ImageGridList(props) {
                                 title={tile.title}
                                 titlePosition="top"
                                 actionIcon={
-                                    <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
+                                    <IconButton aria-label={`star ${tile.title}`} className={classes.icon}
+                                                onClick={() => {
+                                                    favoriteHandler(tile.id);
+                                                }
+                                                }>
                                         {
                                             tile.featured ? (<StarIcon/>) : (<StarBorderIcon/>)
                                         }
