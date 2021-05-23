@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     gridList: {
-        width: 'auto',
+        width: '100%',
         height: 350,
         transform: 'translateZ(0)',
     },
@@ -33,32 +33,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ImageGridList(props) {
     const classes = useStyles();
-    const tileData = props.tileData;
+    const [tileData, setTileData] = useState(props.tileData);
     const loading = props.loading;
-    console.log(loading);
     return (
         <div className={classes.root}>
-            <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>
-                {tileData.map((tile) => (
-                    <GridListTile key={tile.img}>
-                        {(loading ? (<Skeleton width="500px" height="500px"/>) :
-                            (<img src={tile.img} alt={tile.title} width={'100%'} height={'auto'}/>))}
-                        <GridListTileBar
-                            title={tile.title}
-                            titlePosition="top"
-                            actionIcon={
-                                <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
-                                    {
-                                        tile.featured ? (<StarIcon/>) : (<StarBorderIcon/>)
-                                    }
-                                </IconButton>
-                            }
-                            actionPosition="left"
-                            className={classes.titleBar}
-                        />
-                    </GridListTile>
-                ))}
-            </GridList>
+            {loading ? (<Skeleton className={classes.gridList}/>) : (
+                <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>
+                    {tileData.map((tile) => (
+                        <GridListTile key={tile.img}>
+                            <img src={tile.img} alt={tile.title} width={'100%'} height={'auto'}/>
+                            <GridListTileBar
+                                title={tile.title}
+                                titlePosition="top"
+                                actionIcon={
+                                    <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
+                                        {
+                                            tile.featured ? (<StarIcon/>) : (<StarBorderIcon/>)
+                                        }
+                                    </IconButton>
+                                }
+                                actionPosition="left"
+                                className={classes.titleBar}
+                            />
+                        </GridListTile>
+                    ))}
+                </GridList>)}
         </div>
     );
 }
