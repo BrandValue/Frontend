@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Neon({text}) {
+const Neon = ({text}) => {
     const classes = useStyles();
     return (
         <h1 className={`background neonText ${classes.neonTextMd}`}>

@@ -45,7 +45,7 @@ export default function ImageGridList(props) {
                 <GridList cellHeight={'auto'} spacing={1} className={classes.gridList}>
                     {tileData.map((tile) => (
                         <GridListTile key={tile.img}>
-                            <img src={tile.img} alt={tile.title} width={'100%'} height={'auto'}/>
+                            <img src={tile.img} alt={tile.title} width={'100%'} height={'auto'} loading={"lazy"}/>
                             <GridListTileBar
                                 title={tile.title}
                                 titlePosition="top"
