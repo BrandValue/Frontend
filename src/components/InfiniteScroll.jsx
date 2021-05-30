@@ -1,12 +1,11 @@
 import React, {useRef, useCallback, useState, useEffect} from 'react';
 
 function InfiniteScroll(props) {
-    const {data, loading, onPageEnd} = props;
+    const {data: currState, loading, onPageEnd} = props;
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        console.log('effect');
-        setPosts([...posts, ...data]);
-    }, [data]);
+        setPosts(prevState => [...prevState, ...currState]);
+    }, [currState]);
     const observer = useRef(null);
     const lastItem = useCallback((node) => {
         if (loading) {
@@ -17,15 +16,13 @@ function InfiniteScroll(props) {
         }
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
-                console.log('visible');
                 onPageEnd(0, 9);
             }
         });
         if (node) {
             observer.current?.observe(node);
         }
-        console.log(node);
-    }, []);
+    }, [loading, onPageEnd]);
     return (
         <>
             {

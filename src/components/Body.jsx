@@ -26,7 +26,6 @@ function Body(props) {
     const loading = false;
     const fetchData = (pageNumber, limit = 8) => {
         setData(posts.slice(0));
-        console.log('hello');
     }
     return (
         <>
