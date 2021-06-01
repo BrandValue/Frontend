@@ -20,37 +20,14 @@ function ItemsPlaceholder(props) {
     }));
     const classes = useStyles();
     return (
-        // <div className="row ">
-        //     {loaderArr.map(config => (
-        //         <div className={`col`}>
-        //             <Skeleton className={`${classes.skeletonLoader}`} animation={config.animation}
-        //             />
-        //         </div>
-        //
-        //     ))}
-        // </div>
-        <div className={`row no-gutters ${classes.disp}`}>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
-            <div className="col-12 col-sm-6 col-md-8">
-                <Skeleton className={`${classes.skeletonLoader}`}/>
-            </div>
+        <div className="row no-gutters">
+            {loaderArr.map(config => (
+                <div className={`col`}>
+                    <Skeleton className={`${classes.skeletonLoader}`} animation={config.animation}
+                    />
+                </div>
+
+            ))}
         </div>
     );
 }
