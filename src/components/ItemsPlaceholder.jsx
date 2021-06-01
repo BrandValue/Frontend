@@ -13,14 +13,16 @@ function ItemsPlaceholder(props) {
                 width: '200px',
                 height: '200px',
             },
+            backgroundColor: "red",
         },
         disp: {
-            display: "flex"
+            display: "flex",
+            backgroundColor: "green",
         }
     }));
     const classes = useStyles();
     return (
-        <div className="row no-gutters">
+        <div className={`row no-gutters ${classes.disp}`}>
             {loaderArr.map(config => (
                 <div className={`col`}>
                     <Skeleton className={`${classes.skeletonLoader}`} animation={config.animation}
