@@ -3,6 +3,7 @@ import InfiniteScroll from "./InfiniteScroll";
 import {Skeleton} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
 import BackGround from "../assets/backgroundImages/background.jpg";
+import ItemsPlaceholder from "./ItemsPlaceholder";
 
 const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
     id: 2,
@@ -54,21 +55,22 @@ function Body() {
                 // loading ? (<><Skeleton className={classes.skeletonLoader}/>
                 //     <Skeleton className={classes.skeletonLoader}/><Skeleton className={classes.skeletonLoader}/></>) : (
                 //     <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
-                (<div className={'row'}>
-                    <div className={'col-sm'}>
-                        <Skeleton className={classes.skeletonLoader}/>
-                    </div>
-                    <div className={'col-sm'}>
-                        <Skeleton className={classes.skeletonLoader}/>
-                    </div>
-                    <div className={'col-sm'}>
-                        <Skeleton className={classes.skeletonLoader}/>
-                    </div>
-                    <div className={'col-sm'}>
-                        <Skeleton className={classes.skeletonLoader}/>
-                    </div>
-
-                </div>)
+                // (<div className={'row'}>
+                //     <div className={'col-sm'}>
+                //         <Skeleton className={classes.skeletonLoader}/>
+                //     </div>
+                //     <div className={'col-sm'}>
+                //         <Skeleton className={classes.skeletonLoader}/>
+                //     </div>
+                //     <div className={'col-sm'}>
+                //         <Skeleton className={classes.skeletonLoader}/>
+                //     </div>
+                //     <div className={'col-sm'}>
+                //         <Skeleton className={classes.skeletonLoader}/>
+                //     </div>
+                //
+                // </div>)
+                (<ItemsPlaceholder height={'100px'} width={'200px'} repeat={5} animation={'wave'}/>)
             }
         </div>
     )
