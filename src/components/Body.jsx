@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
-import {Skeleton} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
-import BackGround from "../assets/backgroundImages/background.jpg";
 import ItemsPlaceholder from "./ItemsPlaceholder";
 
 const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
@@ -21,56 +19,41 @@ const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem e
     id: 10,
     msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
 }];
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(() => ({
     root: {
-        display: "flex",
         padding: '1.5rem'
-    },
-    skeletonLoader: {
-        height: "350px",
-        width: "350px",
-        [theme.breakpoints.down('md')]: {
-            width: "250px",
-            height: "250px"
-        },
     }
 }));
+
+function getSkeletonLoaderSize() {
+    const width = window.innerWidth;
+    if (width > 400) {
+        return 200;
+    }
+    return width;
+}
 
 function Body() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const classes = useStyles();
+    const divisionFactor = getSkeletonLoaderSize();
     useEffect(() => {
         setData(posts);
     }, []);
-    // setTimeout(() => {
-    //     setLoading(false);
-    // }, 2000);
+    console.log(Math.floor(window.innerWidth / divisionFactor) * 2, divisionFactor, window.innerWidth / divisionFactor, window.innerWidth);
     const fetchData = (pageNumber, limit = 8) => {
         setData(posts.slice(0));
     }
     return (
-        <div className={`${classes.root}`}>
+        <div className={classes.root}>
             {
-                // loading ? (<><Skeleton className={classes.skeletonLoader}/>
-                //     <Skeleton className={classes.skeletonLoader}/><Skeleton className={classes.skeletonLoader}/></>) : (
-                //     <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
-                // (<div className={'row'}>
-                //     <div className={'col-sm'}>
-                //         <Skeleton className={classes.skeletonLoader}/>
-                //     </div>
-                //     <div className={'col-sm'}>
-                //         <Skeleton className={classes.skeletonLoader}/>
-                //     </div>
-                //     <div className={'col-sm'}>
-                //         <Skeleton className={classes.skeletonLoader}/>
-                //     </div>
-                //     <div className={'col-sm'}>
-                //         <Skeleton className={classes.skeletonLoader}/>
-                //     </div>
-                //
-                // </div>)
-                (<ItemsPlaceholder height={'100px'} width={'200px'} repeat={5} animation={'wave'}/>)
+                loading ? (
+                    <ItemsPlaceholder height={`${divisionFactor}px`} width={`${divisionFactor}px`}
+                                      repeat={Math.floor(window.innerWidth / divisionFactor) * 2}
+                                      animation={'wave'}/>) : (
+                    <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
             }
         </div>
     )
