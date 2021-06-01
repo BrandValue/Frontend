@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
+import {Skeleton} from "@material-ui/lab";
+import {makeStyles} from "@material-ui/core/styles";
+import BackGround from "../assets/backgroundImages/background.jpg";
 
 const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
     id: 2,
@@ -17,20 +20,57 @@ const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem e
     id: 10,
     msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
 }];
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+        padding: '1.5rem'
+    },
+    skeletonLoader: {
+        height: "350px",
+        width: "350px",
+        [theme.breakpoints.down('md')]: {
+            width: "250px",
+            height: "250px"
+        },
+    }
+}));
 
-function Body(props) {
+function Body() {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const classes = useStyles();
     useEffect(() => {
         setData(posts);
     }, []);
-    const loading = false;
+    // setTimeout(() => {
+    //     setLoading(false);
+    // }, 2000);
     const fetchData = (pageNumber, limit = 8) => {
         setData(posts.slice(0));
     }
     return (
-        <>
-            <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>
-        </>
+        <div className={`${classes.root}`}>
+            {
+                // loading ? (<><Skeleton className={classes.skeletonLoader}/>
+                //     <Skeleton className={classes.skeletonLoader}/><Skeleton className={classes.skeletonLoader}/></>) : (
+                //     <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
+                (<div className={'row'}>
+                    <div className={'col-sm'}>
+                        <Skeleton className={classes.skeletonLoader}/>
+                    </div>
+                    <div className={'col-sm'}>
+                        <Skeleton className={classes.skeletonLoader}/>
+                    </div>
+                    <div className={'col-sm'}>
+                        <Skeleton className={classes.skeletonLoader}/>
+                    </div>
+                    <div className={'col-sm'}>
+                        <Skeleton className={classes.skeletonLoader}/>
+                    </div>
+
+                </div>)
+            }
+        </div>
     )
 }
 

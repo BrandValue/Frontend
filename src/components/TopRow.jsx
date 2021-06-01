@@ -66,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     textInside: {
+        marginTop: '25px',
         [theme.breakpoints.down('md')]: {
-            marginTop: '20px',
+            marginTop: '15px',
         },
         fontSize: 30,
         fontWeight: "bolder",
@@ -87,7 +88,7 @@ function TopRow() {
         });
     }, []);
     useEffect(() => {
-        const interval = setInterval(() => {
+        setInterval(() => {
             const texts = ['Hungry?', 'Try out today\'s special.', 'Don\'t want to cook?', 'No time for cooking?'];
             const idx = Math.floor((Math.random() * 10) % texts.length);
             setText(texts[idx]);
