@@ -8,21 +8,13 @@ function ItemsPlaceholder(props) {
     const useStyles = makeStyles((theme) => ({
         skeletonLoader: {
             width,
-            height,
-            [theme.breakpoints.down('sm')]: {
-                width: '200px',
-                height: '200px',
-            },
-            backgroundColor: "red",
+            height
+
         },
-        disp: {
-            display: "flex",
-            backgroundColor: "green",
-        }
     }));
     const classes = useStyles();
     return (
-        <div className={`row no-gutters ${classes.disp}`}>
+        <div className={`row`}>
             {loaderArr.map(config => (
                 <div className={`col`}>
                     <Skeleton className={`${classes.skeletonLoader}`} animation={config.animation}

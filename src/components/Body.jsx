@@ -26,23 +26,13 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-function getSkeletonLoaderSize() {
-    const width = window.innerWidth;
-    if (width > 400) {
-        return 200;
-    }
-    return width;
-}
-
 function Body() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const classes = useStyles();
-    const divisionFactor = getSkeletonLoaderSize();
     useEffect(() => {
         setData(posts);
     }, []);
-    console.log(Math.floor(window.innerWidth / divisionFactor) * 2, divisionFactor, window.innerWidth / divisionFactor, window.innerWidth);
     const fetchData = (pageNumber, limit = 8) => {
         setData(posts.slice(0));
     }
@@ -50,8 +40,8 @@ function Body() {
         <div className={classes.root}>
             {
                 loading ? (
-                    <ItemsPlaceholder height={`${divisionFactor}px`} width={`${divisionFactor}px`}
-                                      repeat={Math.floor(window.innerWidth / divisionFactor) * 2}
+                    <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
+                                      repeat={Math.floor(window.innerWidth / 224) * 2}
                                       animation={'wave'}/>) : (
                     <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
             }
