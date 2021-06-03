@@ -22,7 +22,8 @@ const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem e
 
 const useStyles = makeStyles(() => ({
     root: {
-        padding: '1.5rem'
+        padding: '1.5rem',
+        display: "flex",
     }
 }));
 
@@ -39,11 +40,23 @@ function Body() {
     return (
         <div className={classes.root}>
             {
-                loading ? (
-                    <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
-                                      repeat={Math.floor(window.innerWidth / 224) * 2}
-                                      animation={'wave'}/>) : (
-                    <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>)
+                // loading ? (
+                //     <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
+                //                       repeat={Math.floor(window.innerWidth / 224) * 2}
+                //                       animation={'wave'}/>) : (
+                <>
+                    <div className={'row bg-dark'}>
+                        <InfiniteScroll className={'col p-1 bg-info'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                    </div>
+                </>
+                // )
             }
         </div>
     )
