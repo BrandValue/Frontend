@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
-import ItemsPlaceholder from "./ItemsPlaceholder";
 
 const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
     id: 2,
@@ -29,7 +28,7 @@ const useStyles = makeStyles(() => ({
 
 function Body() {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const classes = useStyles();
     useEffect(() => {
         setData(posts);
@@ -45,15 +44,8 @@ function Body() {
                 //                       repeat={Math.floor(window.innerWidth / 224) * 2}
                 //                       animation={'wave'}/>) : (
                 <>
-                    <div className={'row bg-dark'}>
-                        <InfiniteScroll className={'col p-1 bg-info'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
-                        <InfiniteScroll className={'col p-1'} data={data} loading={loading} onPageEnd={fetchData}/>
+                    <div className={'row'}>
+                        <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>
                     </div>
                 </>
                 // )
