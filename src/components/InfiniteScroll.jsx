@@ -1,6 +1,6 @@
 import React, {useRef, useCallback, useState, useEffect} from 'react';
-import FoodItem from "./FoodItem";
 import {makeStyles} from "@material-ui/core/styles";
+import MenuCardItem from "./MenuCardItem";
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -38,10 +38,11 @@ function InfiniteScroll(props) {
             {
                 posts.map((elem, idx) => {
                     if (idx === posts.length - 1) {
-                        return (<div ref={lastItem} className={`col ${classes.margin}`}><FoodItem>{elem.msg}</FoodItem>
+                        return (<div ref={lastItem} className={`col ${classes.margin}`}>
+                            <MenuCardItem>{elem.msg}</MenuCardItem>
                         </div>);
                     } else {
-                        return (<div className={`col ${classes.margin}`}><FoodItem>{elem.msg}</FoodItem></div>);
+                        return (<div className={`col ${classes.margin}`}><MenuCardItem>{elem.msg}</MenuCardItem></div>);
                     }
                 })
             }
