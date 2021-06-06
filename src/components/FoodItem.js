@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Fab} from "@material-ui/core";
+import React, {useState} from 'react';
+import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Fab, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -20,9 +20,15 @@ const useStyles = makeStyles((theme) => ({
 
 function FoodItem(props) {
     const classes = useStyles();
+    const [state, setState] = useState({
+        raised: false,
+        shadow: 2,
+    })
     return (
         <>
-            <Card className={classes.root}>
+            <Card className={classes.root} onMouseOver={() => setState({raised: true, shadow: 3})}
+                  onMouseOut={() => setState({raised: false, shadow: 1})}
+                  raised={state.raised} zdepth={state.shadow}>
                 <CardHeader
                     title="Shrimp and Chorizo Paella"
                     subheader="September 14, 2016"
