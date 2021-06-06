@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             width: '15ch',
             '&:focus': {
-                width: '20ch',
+                width: '18ch',
             },
         },
     },
