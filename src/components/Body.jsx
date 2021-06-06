@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
+import ItemsPlaceholder from "./ItemsPlaceholder";
 
 const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
     id: 2,
@@ -23,6 +24,9 @@ const useStyles = makeStyles(() => ({
     root: {
         padding: '1.5rem',
         display: "flex",
+    },
+    infinite: {
+        padding: '0.8rem',
     }
 }));
 
@@ -39,16 +43,17 @@ function Body() {
     return (
         <div className={classes.root}>
             {
-                // loading ? (
-                //     <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
-                //                       repeat={Math.floor(window.innerWidth / 224) * 2}
-                //                       animation={'wave'}/>) : (
-                <>
-                    <div className={'row'}>
-                        <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>
-                    </div>
-                </>
-                // )
+                loading ? (
+                    <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
+                                      repeat={Math.floor(window.innerWidth / 224) * 2}
+                                      animation={'wave'}/>) : (
+                    <>
+                        <div className={`row ${classes.infinite}`}>
+                            {/*hello*/}
+                            <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>
+                        </div>
+                    </>
+                )
             }
         </div>
     )
