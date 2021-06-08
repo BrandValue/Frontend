@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import {makeStyles} from "@material-ui/core/styles";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import {func} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FoodItem(props) {
+    const {title, subHeader, imgTitle, imgSrc, description, isFavorite, id, onFavoriteClick, onOrderClick} = props;
+    const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
     const [state, setState] = useState({
         raised: false,
@@ -30,25 +34,30 @@ function FoodItem(props) {
                   onMouseOut={() => setState({raised: false, shadow: 1})}
                   raised={state.raised} zdepth={state.shadow}>
                 <CardHeader
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
+                    title={title}
+                    subheader={subHeader}
                 />
                 <CardMedia
                     className={classes.media}
-                    image="https://source.unsplash.com/random/300X200"
-                    title="Paella dish"
+                    image={imgSrc}
+                    title={imgTitle}
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        This impressive paella is a perfect party dish and a fun meal to cook together with your
-                        guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                        {description}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon/>
+                    <IconButton aria-label="add to favorites" onClick={() => {
+                        setFavorite(favorite => !favorite);
+                        onFavoriteClick(id);
+                    }}>
+                        {
+                            favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
+                        }
                     </IconButton>
-                    <Button variant="outlined" size="small" color="primary" className={classes.expand}>
+                    <Button variant="outlined" size="small" color="primary" className={classes.expand}
+                            onClick={() => onOrderClick(id)}>
                         Order Now
                     </Button>
                 </CardActions>

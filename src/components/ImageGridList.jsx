@@ -4,8 +4,8 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +56,7 @@ export default function ImageGridList(props) {
                                                 }
                                                 }>
                                         {
-                                            tile.favorite ? (<StarIcon/>) : (<StarBorderIcon/>)
+                                            tile.favorite ? (<FavoriteIcon/>) : (<FavoriteBorderIcon/>)
                                         }
                                     </IconButton>
                                 }
