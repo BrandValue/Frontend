@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FoodItem(props) {
-    const {title, subHeader, imgTitle, imgSrc, description, isFavorite, id, onFavoriteClick, onOrderClick} = props;
+    const {title, subHeader, imgTitle, imgSrc, description, isFavorite, id, onFavoriteClick, onOrderClick} = props.data;
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
     const [state, setState] = useState({

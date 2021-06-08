@@ -39,10 +39,10 @@ function InfiniteScroll(props) {
                 posts.map((elem, idx) => {
                     if (idx === posts.length - 1) {
                         return (<div ref={lastItem} className={`col ${classes.margin}`}>
-                            <MenuCardItem>{elem.msg}</MenuCardItem>
+                            <MenuCardItem data={elem}/>
                         </div>);
                     } else {
-                        return (<div className={`col ${classes.margin}`}><MenuCardItem>{elem.msg}</MenuCardItem></div>);
+                        return (<div className={`col ${classes.margin}`}><MenuCardItem data={elem}/></div>);
                     }
                 })
             }

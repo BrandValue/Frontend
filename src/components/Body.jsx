@@ -2,23 +2,77 @@ import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
+import {func} from "prop-types";
 
-const posts = [{id: 1, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
+const posts = [{
+    id: 1,
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
+}, {
     id: 2,
-    msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
-}, {id: 3, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
+}, {
+    id: 3,
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
+}, {
     id: 4,
-    msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
-}, {id: 5, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
+}, {
+    id: 5,
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
+}, {
     id: 6,
-    msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
-}, {id: 7, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
-    id: 8,
-    msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
-}, {id: 9, msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'}, {
-    id: 10,
-    msg: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum'
+    title: 'ABC',
+    subHeader: 'CDE',
+    imgTitle: 'Image',
+    imgSrc: 'https://source.unsplash.com/random',
+    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    isFavorite: true,
+    onFavoriteClick,
+    onOrderClick
 }];
+
+function onFavoriteClick(id) {
+    console.log(id);
+}
+
+function onOrderClick(id) {
+    console.log(id);
+}
 
 const useStyles = makeStyles(() => ({
     root: {
