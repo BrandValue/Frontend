@@ -2,6 +2,12 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {Checkbox} from "@material-ui/core";
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
+const checkedIcon = <CheckBoxIcon fontSize="small"/>;
 
 
 export default function AutocompleteCategories(props) {
@@ -31,39 +37,44 @@ export default function AutocompleteCategories(props) {
             setOptions([]);
         }
     }, [open]);
-    console.log(getSelection())
-    return (
-        <Autocomplete hidden={isHidden}
-                      id={id}
-                      style={{width: '28ch'}}
-                      open={open}
-                      onOpen={() => {
-                          setOpen(true);
-                      }}
-                      onClose={() => {
-                          setOpen(false);
-                      }}
-                      onInputChange={(event, value) => console.log(value)}
-                      getOptionSelected={(option, value) => option.title === value.title}
-                      getOptionLabel={(option) => option.title}
-                      options={options}
-                      loading={loading}
-                      renderInput={(params) => (
-                          <TextField
-                              {...params}
-                              label={textLabel}
-                              size={"small"}
-                              InputProps={{
-                                  ...params.InputProps,
-                                  endAdornment: (
-                                      <>
-                                          {loading ? <CircularProgress color="inherit" size={20}/> : null}
-                                          {params.InputProps.endAdornment}
-                                      </>
-                                  ),
-                              }}
-                          />
-                      )}
-        />
-    );
+    return (<Autocomplete
+        multiple
+        hidden={isHidden}
+        id={id}
+        open={open}
+        onOpen={() => {
+            setOpen(true);
+        }}
+        onClose={() => {
+            setOpen(false);
+        }}
+        style={{width: '80%'}}
+        options={options}
+        loading={loading}
+        disableCloseOnSelect
+        getOptionSelected={(option, value) => option.title === value.title}
+        getOptionLabel={(option) => option.title}
+        renderOption={(option, {selected}) => (
+            <>
+                <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{marginRight: 8}}
+                    checked={selected}
+                />
+                {option.title}
+            </>
+        )}
+        renderInput={(params) => (
+            <TextField {...params} variant="outlined" placeholder="Favorites" InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                    <>
+                        {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                        {params.InputProps.endAdornment}
+                    </>
+                ),
+            }}/>
+        )}
+    />);
 }
