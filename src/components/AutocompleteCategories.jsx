@@ -14,7 +14,7 @@ export default function AutocompleteCategories(props) {
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState([]);
     const loading = open && options.length === 0;
-    const {hidden: isHidden, id, URL, textLabel} = props;
+    const {hidden: isHidden, id, URL, placeholder} = props;
     React.useEffect(() => {
         let active = true;
         if (!loading) {
@@ -52,6 +52,9 @@ export default function AutocompleteCategories(props) {
         options={options}
         loading={loading}
         disableCloseOnSelect
+        onChange={(event, value) => {
+            console.log(value);
+        }}
         getOptionSelected={(option, value) => option.title === value.title}
         getOptionLabel={(option) => option.title}
         renderOption={(option, {selected}) => (
@@ -66,7 +69,7 @@ export default function AutocompleteCategories(props) {
             </>
         )}
         renderInput={(params) => (
-            <TextField {...params} variant="outlined" placeholder="Favorites" InputProps={{
+            <TextField {...params} variant="outlined" placeholder={placeholder} InputProps={{
                 ...params.InputProps,
                 endAdornment: (
                     <>
