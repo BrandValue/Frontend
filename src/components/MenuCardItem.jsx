@@ -5,23 +5,44 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import {makeStyles} from "@material-ui/core/styles";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import {func} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: Math.min(345, window.innerWidth - 60),
+        width: Math.min(275, window.innerWidth),
+        '&:hover': {
+            background: "#fafafa",
+
+        }
     },
     media: {
         height: 0,
         paddingTop: '56.25%',
+        margin: '8px',
     },
     expand: {
         marginLeft: 'auto',
+    },
+    adjustPadding: {
+        paddingTop: '4px!important',
+        paddingLeft: '8pxx!important',
+        paddingBottom: '0px!important',
     }
 }));
 
 function FoodItem(props) {
-    const {title, subHeader, imgTitle, imgSrc, description, isFavorite, id, onFavoriteClick, onOrderClick} = props.data;
+    const {
+        title,
+        subHeader,
+        imgTitle,
+        imgSrc,
+        rating,
+        category,
+        isFavorite,
+        id,
+        price,
+        onFavoriteClick,
+        onOrderClick
+    } = props.data;
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
     const [state, setState] = useState({
@@ -30,21 +51,25 @@ function FoodItem(props) {
     })
     return (
         <>
-            <Card className={classes.root} onMouseOver={() => setState({raised: true, shadow: 3})}
+            <Card className={classes.root} onMouseOver={() => {
+                setState({raised: true, shadow: 3})
+
+            }}
                   onMouseOut={() => setState({raised: false, shadow: 1})}
                   raised={state.raised} zdepth={state.shadow}>
-                <CardHeader
-                    title={title}
-                    subheader={subHeader}
-                />
                 <CardMedia
                     className={classes.media}
                     image={imgSrc}
                     title={imgTitle}
                 />
-                <CardContent>
+                <CardHeader
+                    title={title}
+                    subheader={subHeader}
+                    className={classes.adjustPadding}
+                />
+                <CardContent className={classes.adjustPadding}>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {description}
+                        {category} {rating} {price}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>

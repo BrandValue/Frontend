@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
-import {func} from "prop-types";
 
 const posts = [{
     id: 1,
@@ -10,8 +9,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 4,
+    category: 'non-veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }, {
@@ -20,8 +21,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 3,
+    category: 'veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }, {
@@ -30,8 +33,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 2,
+    category: 'veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }, {
@@ -40,8 +45,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 1,
+    category: 'veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }, {
@@ -50,8 +57,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 4,
+    category: 'non-veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }, {
@@ -60,8 +69,10 @@ const posts = [{
     subHeader: 'CDE',
     imgTitle: 'Image',
     imgSrc: 'https://source.unsplash.com/random',
-    description: 'Lorem epsumLorem epsumLorem epsumLorem epsumLorem epsumLorem epsum',
+    rating: 4,
+    category: 'veg',
     isFavorite: true,
+    price: '10$',
     onFavoriteClick,
     onOrderClick
 }];
