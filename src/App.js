@@ -9,8 +9,8 @@ function App() {
         <>
             <Header/>
             <TopRow/>
-            {/*<Body/>*/}
             <SortAndFilter/>
+            <Body/>
         </>
     );
 }

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         flexWrap: 'wrap',
         listStyle: 'none',
-        padding: theme.spacing(0.5),
+        padding: theme.spacing(1.5),
         marginTop: '0.5rem',
     }
 }));
