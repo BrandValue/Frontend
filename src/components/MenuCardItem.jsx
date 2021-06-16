@@ -8,7 +8,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: Math.min(275, window.innerWidth),
+        width: Math.min(300, window.innerWidth),
         '&:hover': {
             background: "#fafafa",
 
