@@ -2,80 +2,7 @@ import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
-
-const posts = [{
-    id: 1,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 4,
-    category: 'non-veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}, {
-    id: 2,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 3,
-    category: 'veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}, {
-    id: 3,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 2,
-    category: 'veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}, {
-    id: 4,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 1,
-    category: 'veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}, {
-    id: 5,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 4,
-    category: 'non-veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}, {
-    id: 6,
-    title: 'ABC',
-    subHeader: 'CDE',
-    imgTitle: 'Image',
-    imgSrc: 'https://source.unsplash.com/random',
-    rating: 4,
-    category: 'veg',
-    isFavorite: true,
-    price: '10$',
-    onFavoriteClick,
-    onOrderClick
-}];
+import {getRequest} from '../services/APIEndpoints';
 
 function onFavoriteClick(id) {
     console.log(id);
@@ -94,13 +21,20 @@ const useStyles = makeStyles(() => ({
 
 function Body() {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const classes = useStyles();
     useEffect(() => {
-        setData(posts);
+        getRequest('food/food-item').then(({data}) => {
+            setData(data);
+            data.forEach((item, idx, arr) => {
+                arr[idx].onFavoriteClick = onFavoriteClick;
+                arr[idx].onOrderClick = onOrderClick;
+            })
+            setLoading(false);
+        });
     }, []);
     const fetchData = (pageNumber, limit = 8) => {
-        setData(posts.slice(0));
+        setData(data.slice(0));
     }
     return (
         <div className={classes.root}>

@@ -82,7 +82,7 @@ function TopRow() {
     const [tileData, setTileData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        getRequest('').then(({data}) => {
+        getRequest('food/favorites').then(({data}) => {
             setTileData(data);
             setLoading(false);
         });

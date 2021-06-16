@@ -15,8 +15,8 @@ function ItemsPlaceholder(props) {
     const classes = useStyles();
     return (
         <div className={`row`}>
-            {loaderArr.map(config => (
-                <div className={`col`}>
+            {loaderArr.map((config, index) => (
+                <div className={`col`} key={index}>
                     <Skeleton className={`${classes.skeletonLoader}`} animation={config.animation}
                     />
                 </div>
