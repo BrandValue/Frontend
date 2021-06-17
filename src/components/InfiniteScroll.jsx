@@ -1,6 +1,7 @@
 import React, {useRef, useCallback, useState, useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import MenuCardItem from "./MenuCardItem";
+import ItemsPlaceholder from "./ItemsPlaceholder";
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -49,6 +50,12 @@ function InfiniteScroll(props) {
                         return (<div className={`col ${classes.margin}`} key={idx}><MenuCardItem data={elem}/></div>);
                     }
                 })
+
+            }
+            {
+                segmentLoading ? <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
+                                                   repeat={Math.floor(window.innerWidth / 224) * 2}
+                                                   animation={'wave'}/> : ''
             }
         </div>
     );
