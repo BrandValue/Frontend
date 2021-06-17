@@ -12,7 +12,11 @@ const useStyles = makeStyles(() => ({
 function InfiniteScroll(props) {
     const {data: currState, loading, onPageEnd} = props;
     const [posts, setPosts] = useState([]);
+    const [segmentLoading, setSegmentLoading] = useState(loading);
     const classes = useStyles();
+    useEffect(() => {
+        setSegmentLoading(loading);
+    }, [loading]);
     useEffect(() => {
         setPosts(prevState => [...prevState, ...currState]);
     }, [currState]);

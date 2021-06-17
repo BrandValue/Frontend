@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
 function Body() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [segmentLoading, setSegmentLoading] = useState(false);
     const classes = useStyles();
     useEffect(() => {
         getRequest('food/food-item').then(({data}) => {
@@ -34,7 +35,15 @@ function Body() {
         });
     }, []);
     const fetchData = (pageNumber, limit = 8) => {
-        setData(data.slice(0));
+        setSegmentLoading(true);
+        getRequest('food/food-item').then(({data}) => {
+            setData(data);
+            data.forEach((item, idx, arr) => {
+                arr[idx].onFavoriteClick = onFavoriteClick;
+                arr[idx].onOrderClick = onOrderClick;
+            })
+            setSegmentLoading(false);
+        });
     }
     return (
         <div className={classes.root}>
@@ -43,7 +52,7 @@ function Body() {
                     <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
                                       repeat={Math.floor(window.innerWidth / 224) * 2}
                                       animation={'wave'}/>) : (
-                    <InfiniteScroll data={data} loading={loading} onPageEnd={fetchData}/>
+                    <InfiniteScroll data={data} loading={segmentLoading} onPageEnd={fetchData}/>
                 )
             }
         </div>
