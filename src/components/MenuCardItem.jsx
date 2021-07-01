@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import {makeStyles} from "@material-ui/core/styles";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FoodTypeIndicator from "./FoodTypeIndicator";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,8 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
     adjustPadding: {
         paddingTop: '4px!important',
-        paddingLeft: '8pxx!important',
         paddingBottom: '0px!important',
+    },
+    metaClasses: {
+        paddingTop: '4px!important',
+        paddingBottom: '0px!important',
+        display: "flex"
     }
 }));
 
@@ -67,9 +72,10 @@ function FoodItem(props) {
                     subheader={subHeader}
                     className={classes.adjustPadding}
                 />
-                <CardContent className={classes.adjustPadding}>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {category} {rating} {price}
+                <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="div" className={classes.metaClasses}>
+                        {category === 'non-veg' ? <FoodTypeIndicator color={'green'}/> :
+                            <FoodTypeIndicator color={'red'}/>} {rating} {price}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
