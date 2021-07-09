@@ -3,6 +3,9 @@ import StarIcon from '@material-ui/icons/Star';
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+    },
     magnitude: {
         fontWeight: "bold",
         paddingLeft: 2,
@@ -17,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
 function Rating({magnitude}) {
     const classes = useStyles();
     return (
-        <>
+        <div className={classes.root}>
             <StarIcon className={classes.size} color={"primary"} fontSize={"small"}/><span
             className={classes.magnitude}>{magnitude}</span>
-        </>
+        </div>
     );
 }
 
