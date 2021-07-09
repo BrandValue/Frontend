@@ -9,7 +9,12 @@ const useStyles = makeStyles((theme) => ({
     },
     magnitude: {
         fontWeight: "bold",
-        paddingLeft: 2
+        paddingLeft: 2,
+        fontSize: "small"
+    },
+    size: {
+        width: 15,
+        height: 15
     }
 }));
 
@@ -17,7 +22,7 @@ function Rating({magnitude}) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <StarIcon color={"primary"} fontSize={"small"}/> <span
+            <StarIcon className={classes.size} color={"primary"} fontSize={"small"}/> <span
             className={classes.magnitude}>{magnitude}</span>
         </div>
     );
