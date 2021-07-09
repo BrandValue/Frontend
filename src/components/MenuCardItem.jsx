@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '0px!important',
     },
     metaClasses: {
-        paddingTop: '4px!important',
-        paddingBottom: '0px!important',
+        justifyContent: "space-between !important",
         display: "flex",
         alignItems: "center"
     }
