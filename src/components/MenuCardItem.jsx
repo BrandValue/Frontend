@@ -6,6 +6,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import {makeStyles} from "@material-ui/core/styles";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FoodTypeIndicator from "./FoodTypeIndicator";
+import Rating from "./Rating";
+import Price from "./Price";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     metaClasses: {
         paddingTop: '4px!important',
         paddingBottom: '0px!important',
-        display: "flex"
+        display: "flex",
+        alignItems: "center"
     }
 }));
 
@@ -75,7 +78,8 @@ function FoodItem(props) {
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="div" className={classes.metaClasses}>
                         {category === 'non-veg' ? <FoodTypeIndicator color={'green'}/> :
-                            <FoodTypeIndicator color={'red'}/>} {rating} {price}
+                            <FoodTypeIndicator color={'red'}/>}  <Rating magnitude={rating}/>  <Price
+                        costInformation={price}/>
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
