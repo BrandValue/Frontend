@@ -8,8 +8,26 @@ function onFavoriteClick(id) {
     console.log(id);
 }
 
-function onOrderClick(id) {
+function onAddToCartClick(id) {
     console.log(id);
+}
+
+function onAddBtnClick(id) {
+    console.log(id);
+}
+
+function onSubBtnClick(id) {
+    console.log(id);
+}
+
+function updateViewAndAddFunction(data, setData) {
+    setData(data);
+    data.forEach((item, idx, arr) => {
+        arr[idx].onFavoriteClick = onFavoriteClick;
+        arr[idx].onAddToCartClick = onAddToCartClick;
+        arr[idx].onAddBtnClick = onAddBtnClick;
+        arr[idx].onSubBtnClick = onSubBtnClick;
+    });
 }
 
 const useStyles = makeStyles(() => ({
@@ -26,22 +44,14 @@ function Body() {
     const classes = useStyles();
     useEffect(() => {
         getRequest('food/food-item').then(({data}) => {
-            setData(data);
-            data.forEach((item, idx, arr) => {
-                arr[idx].onFavoriteClick = onFavoriteClick;
-                arr[idx].onOrderClick = onOrderClick;
-            })
+            updateViewAndAddFunction(data, setData);
             setLoading(false);
         });
     }, []);
     const fetchData = (pageNumber, limit = 8) => {
         setSegmentLoading(true);
         getRequest('food/food-item').then(({data}) => {
-            setData(data);
-            data.forEach((item, idx, arr) => {
-                arr[idx].onFavoriteClick = onFavoriteClick;
-                arr[idx].onOrderClick = onOrderClick;
-            })
+            updateViewAndAddFunction(data, setData);
             setSegmentLoading(false);
         });
     }

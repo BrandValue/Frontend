@@ -1,10 +1,6 @@
 import React from 'react';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import SortIcon from '@material-ui/icons/Sort';
 import {makeStyles} from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
 import IconButton from "@material-ui/core/IconButton";
 import AutocompleteCategories from "./AutocompleteCategories";
 

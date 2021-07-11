@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between !important",
         display: "flex",
         alignItems: "center"
+    },
+    dFlex: {
+        display: "flex",
+        alignItems: "center"
     }
 }));
 
@@ -48,7 +52,10 @@ function FoodItem(props) {
         id,
         price,
         onFavoriteClick,
-        onOrderClick
+        onAddToCartClick,
+        onAddBtnClick,
+        onSubBtnClick,
+        hasItemInCart
     } = props.data;
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
@@ -77,11 +84,11 @@ function FoodItem(props) {
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="div" className={classes.metaClasses}>
                         {category === 'non-veg' ? <FoodTypeIndicator color={'green'}/> :
-                            <FoodTypeIndicator color={'red'}/>}  <Rating magnitude={rating}/>  <Price
+                            <FoodTypeIndicator color={'red'}/>} <Rating magnitude={rating}/> <Price
                         costInformation={price}/>
                     </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
+                <CardActions disableSpacing className={classes.metaClasses}>
                     <IconButton aria-label="add to favorites" onClick={() => {
                         setFavorite(favorite => !favorite);
                         onFavoriteClick(id);
@@ -90,10 +97,20 @@ function FoodItem(props) {
                             favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
                         }
                     </IconButton>
-                    <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                            onClick={() => onOrderClick(id)}>
-                        Order Now
-                    </Button>
+                    <div className={classes.dFlex}>
+                        <Button variant="outlined" size="small" color="primary" className={classes.expand}
+                                onClick={() => onSubBtnClick(id)} disabled={hasItemInCart}>
+                            -
+                        </Button>
+                        <Button variant="outlined" size="small" color="primary" className={classes.expand}
+                                onClick={() => onAddToCartClick(id)}>
+                            Cart
+                        </Button>
+                        <Button variant="outlined" size="small" color="primary" className={classes.expand}
+                                onClick={() => onAddBtnClick(id)}>
+                            +
+                        </Button>
+                    </div>
                 </CardActions>
             </Card>
         </>
