@@ -49,6 +49,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 function FoodItem(props) {
+    const [foodItem, setFoodItem] = useState(props.data);
+    const [state, setState] = useState({
+        raised: false,
+        shadow: 2,
+    });
     const {
         title,
         subHeader,
@@ -65,13 +70,9 @@ function FoodItem(props) {
         onSubBtnClick,
         hasItemInCart,
         cartBtnText
-    } = props.data;
+    } = foodItem;
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
-    const [state, setState] = useState({
-        raised: false,
-        shadow: 2,
-    })
     return (
         <>
             <Card className={classes.root} onMouseOver={() => {
@@ -99,7 +100,7 @@ function FoodItem(props) {
                 </CardContent>
                 <CardActions disableSpacing className={classes.metaClasses}>
                     <IconButton aria-label="add to favorites" onClick={() => {
-                        onFavoriteClick(props.data).then(() => {
+                        onFavoriteClick(foodItem).then(() => {
                             setFavorite(favorite => !favorite);
                         });
                     }}>
@@ -109,15 +110,15 @@ function FoodItem(props) {
                     </IconButton>
                     <ButtonGroup size="small" aria-label="small outlined button group">
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onSubBtnClick(props.data)} disabled={hasItemInCart}>
+                                onClick={() => onSubBtnClick(foodItem, setFoodItem)} disabled={!hasItemInCart}>
                             -
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddToCartClick(props.data)}>
+                                onClick={() => onAddToCartClick(foodItem, setFoodItem)}>
                             {cartBtnText}
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddBtnClick(props.data)}>
+                                onClick={() => onAddBtnClick(foodItem, setFoodItem)}>
                             +
                         </Button>
                     </ButtonGroup>
