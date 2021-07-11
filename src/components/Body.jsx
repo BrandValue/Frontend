@@ -27,6 +27,7 @@ function updateViewAndAddFunction(data, setData) {
         arr[idx].onAddToCartClick = onAddToCartClick;
         arr[idx].onAddBtnClick = onAddBtnClick;
         arr[idx].onSubBtnClick = onSubBtnClick;
+        arr[idx].cartBtnText = 'Cart';
     });
 }
 

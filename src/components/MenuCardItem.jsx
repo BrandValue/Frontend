@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Fab, Paper} from "@material-ui/core";
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    CardMedia,
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -9,7 +17,7 @@ import FoodTypeIndicator from "./FoodTypeIndicator";
 import Rating from "./Rating";
 import Price from "./Price";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: Math.min(285, window.innerWidth - 10),
         '&:hover': {
@@ -55,7 +63,8 @@ function FoodItem(props) {
         onAddToCartClick,
         onAddBtnClick,
         onSubBtnClick,
-        hasItemInCart
+        hasItemInCart,
+        cartBtnText
     } = props.data;
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
@@ -97,20 +106,20 @@ function FoodItem(props) {
                             favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
                         }
                     </IconButton>
-                    <div className={classes.dFlex}>
+                    <ButtonGroup size="small" aria-label="small outlined button group">
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
                                 onClick={() => onSubBtnClick(id)} disabled={hasItemInCart}>
                             -
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
                                 onClick={() => onAddToCartClick(id)}>
-                            Cart
+                            {cartBtnText}
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
                                 onClick={() => onAddBtnClick(id)}>
                             +
                         </Button>
-                    </div>
+                    </ButtonGroup>
                 </CardActions>
             </Card>
         </>
