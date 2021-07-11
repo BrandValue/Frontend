@@ -99,8 +99,9 @@ function FoodItem(props) {
                 </CardContent>
                 <CardActions disableSpacing className={classes.metaClasses}>
                     <IconButton aria-label="add to favorites" onClick={() => {
-                        setFavorite(favorite => !favorite);
-                        onFavoriteClick(id);
+                        onFavoriteClick(props.data).then(() => {
+                            setFavorite(favorite => !favorite);
+                        });
                     }}>
                         {
                             favorite ? <FavoriteIcon/> : <FavoriteBorderIcon/>
@@ -108,15 +109,15 @@ function FoodItem(props) {
                     </IconButton>
                     <ButtonGroup size="small" aria-label="small outlined button group">
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onSubBtnClick(id)} disabled={hasItemInCart}>
+                                onClick={() => onSubBtnClick(props.data)} disabled={hasItemInCart}>
                             -
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddToCartClick(id)}>
+                                onClick={() => onAddToCartClick(props.data)}>
                             {cartBtnText}
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddBtnClick(id)}>
+                                onClick={() => onAddBtnClick(props.data)}>
                             +
                         </Button>
                     </ButtonGroup>

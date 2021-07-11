@@ -4,16 +4,25 @@ import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
 import {getRequest} from '../services/APIEndpoints';
 
-function onFavoriteClick(id) {
-    console.log(id);
+let cart = [];
+
+function addItemsToCart(item, count) {
+    cart.push({item, count});
 }
 
-function onAddToCartClick(id) {
-    console.log(id);
+function onFavoriteClick(data) {
+    return new Promise((resolve, reject) => {
+        // send data
+        resolve(true);
+    });
 }
 
-function onAddBtnClick(id) {
-    console.log(id);
+function onAddToCartClick(data) {
+    console.log(data);
+}
+
+function onAddBtnClick(data) {
+    console.log(data);
 }
 
 function onSubBtnClick(id) {
