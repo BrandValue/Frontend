@@ -100,7 +100,7 @@ function FoodItem(props) {
                 </CardContent>
                 <CardActions disableSpacing className={classes.metaClasses}>
                     <IconButton aria-label="add to favorites" onClick={() => {
-                        onFavoriteClick(foodItem).then(() => {
+                        onFavoriteClick(foodItem, setFoodItem).then(() => {
                             setFavorite(favorite => !favorite);
                         });
                     }}>

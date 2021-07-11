@@ -3,6 +3,7 @@ import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
 import {getRequest} from '../services/APIEndpoints';
+import {Modal} from "@material-ui/core";
 
 let cart = [];
 
@@ -10,15 +11,11 @@ function addItemsToCart(item, count) {
     cart.push({item, count});
 }
 
-function onFavoriteClick(data) {
+function onFavoriteClick(data, setState) {
     return new Promise((resolve, reject) => {
         // send data
         resolve(true);
     });
-}
-
-function onAddToCartClick(data) {
-    console.log(data);
 }
 
 function onAddBtnClick(data, setState) {
@@ -63,7 +60,7 @@ function onSubBtnClick(data, setState) {
     }
 }
 
-function updateViewAndAddFunction(data, setData) {
+function updateViewAndAddFunction(data, setData, onAddToCartClick) {
     setData(data);
     data.forEach((item, idx, arr) => {
         arr[idx].onFavoriteClick = onFavoriteClick;
@@ -75,31 +72,68 @@ function updateViewAndAddFunction(data, setData) {
     });
 }
 
-const useStyles = makeStyles(() => ({
+function getModalStyle() {
+    return {
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
+    };
+}
+
+const useStyles = makeStyles((theme) => ({
     root: {
         padding: '1.5rem',
         display: "flex",
+    },
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     }
 }));
 
 function Body() {
+    const classes = useStyles();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [modalState, setModalState] = useState(false);
     const [segmentLoading, setSegmentLoading] = useState(false);
-    const classes = useStyles();
+    const [modalStyle] = useState(getModalStyle);
+
+    function handleModalClose() {
+        setModalState(false);
+    }
+
+    function onAddToCartClick(data) {
+        setModalState(true);
+    }
+
     useEffect(() => {
         getRequest('food/food-item').then(({data}) => {
-            updateViewAndAddFunction(data, setData);
+            updateViewAndAddFunction(data, setData, onAddToCartClick);
             setLoading(false);
         });
     }, []);
+
     const fetchData = (pageNumber, limit = 8) => {
         setSegmentLoading(true);
         getRequest('food/food-item').then(({data}) => {
-            updateViewAndAddFunction(data, setData);
+            updateViewAndAddFunction(data, setData, onAddToCartClick);
             setSegmentLoading(false);
         });
     }
+
+    const modalBody = (
+        <div style={modalStyle} className={classes.paper}>
+            <h2 id="simple-modal-title">Text in a modal</h2>
+            <p id="simple-modal-description">
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </p>
+        </div>
+    );
     return (
         <div className={classes.root}>
             {
@@ -110,6 +144,14 @@ function Body() {
                     <InfiniteScroll data={data} loading={segmentLoading} onPageEnd={fetchData}/>
                 )
             }
+            <Modal
+                open={modalState}
+                onClose={handleModalClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {modalBody}
+            </Modal>
         </div>
     )
 }
