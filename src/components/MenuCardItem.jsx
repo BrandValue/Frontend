@@ -72,6 +72,7 @@ function FoodItem(props) {
         cartBtnText
     } = foodItem;
     const [favorite, setFavorite] = useState(isFavorite);
+    const [btnText, setBtnText] = useState(cartBtnText);
     const classes = useStyles();
     return (
         <>
@@ -110,15 +111,24 @@ function FoodItem(props) {
                     </IconButton>
                     <ButtonGroup size="small" aria-label="small outlined button group">
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onSubBtnClick(foodItem, setFoodItem)} disabled={!hasItemInCart}>
+                                onClick={() => {
+                                    onSubBtnClick(foodItem);
+                                    setBtnText(foodItem.cartBtnText);
+                                }} disabled={!hasItemInCart}>
                             -
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddToCartClick(foodItem, setFoodItem)}>
-                            {cartBtnText}
+                                onClick={() => {
+                                    onAddToCartClick(foodItem);
+                                    setBtnText(foodItem.cartBtnText);
+                                }}>
+                            {btnText}
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                onClick={() => onAddBtnClick(foodItem, setFoodItem)}>
+                                onClick={() => {
+                                    onAddBtnClick(foodItem);
+                                    setBtnText(foodItem.cartBtnText);
+                                }}>
                             +
                         </Button>
                     </ButtonGroup>

@@ -18,7 +18,7 @@ function onFavoriteClick(data, setState) {
     });
 }
 
-function onAddBtnClick(data, setState) {
+function onAddBtnClick(data) {
     let found = false;
     cart.forEach(cartItem => {
         if (cartItem.item.id === data.id) {
@@ -26,18 +26,16 @@ function onAddBtnClick(data, setState) {
             found = true;
             data.hasItemInCart = true;
             data.cartBtnText = `${cartItem.count} Set`;
-            setState(data);
         }
     });
     if (!found) {
         addItemsToCart(data, 1);
         data.hasItemInCart = true;
         data.cartBtnText = `1 Set`;
-        setState(data);
     }
 }
 
-function onSubBtnClick(data, setState) {
+function onSubBtnClick(data) {
     let idxFound = -1;
     cart.forEach((cartItem, idx) => {
         if (cartItem.item.id === data.id) {
@@ -51,12 +49,10 @@ function onSubBtnClick(data, setState) {
     if (cart[idxFound].count === 0) {
         cart[idxFound].item.hasItemInCart = false;
         cart[idxFound].item.cartBtnText = 'Cart';
-        setState(cart[idxFound].item);
         cart.splice(idxFound, 1);
     } else {
         cart[idxFound].item.cartBtnText = `${cart[idxFound].count} Set`;
         cart[idxFound].item.hasItemInCart = true;
-        setState(cart[idxFound].item);
     }
 }
 
