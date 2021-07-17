@@ -13,7 +13,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
-        width: Math.min(window.innerWidth - 15, 450),
+        width: Math.min(window.innerWidth - 20, 425),
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #e5e5e5',
         boxShadow: theme.shadows[5],
@@ -29,7 +29,12 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer"
     },
     scroll: {
-        overflow: "auto"
+        overflowX: "auto",
+        overflowY: "auto",
+        height: Math.min(window.innerHeight - 20, 425)
+    },
+    bold: {
+        fontWeight: "bolder"
     }
 }));
 
@@ -39,7 +44,7 @@ const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnC
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
             <div className={classes.modalHeader}>
-                <span>Cart Summary</span>
+                <span className={classes.bold}>Cart Summary</span>
                 <h2 className={classes.pointer} onClick={onClose}>&times;</h2>
             </div>
             <div className={classes.scroll} id="modal-description">

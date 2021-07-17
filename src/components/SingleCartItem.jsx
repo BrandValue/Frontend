@@ -3,23 +3,25 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardActions, CardHeader, CardMedia} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Add, Remove} from "@material-ui/icons";
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(() => ({
     card: {
-        width: Math.min(window.innerWidth - 30, 425),
+        width: Math.min(window.innerWidth - 30, 400),
         '&:hover': {
             background: "#fafafa",
         },
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        margin: "auto !important"
+        margin: "auto !important",
+        height: "auto"
     },
     media: {
         width: "auto",
         height: "auto",
-        paddingTop: "auto",
-        paddingRight: "auto",
+        paddingTop: "24.25%",
+        paddingRight: "24.25%",
         borderRadius: 50,
         margin: 4
     },
@@ -45,11 +47,12 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
         shadow: 2,
     });
     return (
-        <div>
+        <>
+            <IconButton><CloseIcon/></IconButton>
             {count > 0 ? (
                 <>
                     <Card className={classes.card} onMouseOver={() => {
-                        setState({raised: true, shadow: 3})
+                        setState({raised: true, shadow: 2})
 
                     }}
                           onMouseOut={() => setState({raised: false, shadow: 1})}
@@ -79,7 +82,7 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
                         </CardActions>
                     </Card>
                 </>) : ('')}
-        </div>
+        </>
     );
 }
 
