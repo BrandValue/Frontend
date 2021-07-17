@@ -8,14 +8,12 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles(() => ({
     card: {
         width: Math.min(window.innerWidth - 30, 400),
-        '&:hover': {
-            background: "#fafafa",
-        },
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         margin: "auto !important",
-        height: "auto"
+        height: "auto",
+        marginBottom: 32
     },
     media: {
         width: "auto",
@@ -34,6 +32,22 @@ const useStyles = makeStyles(() => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center"
+    },
+    delete: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        marginBottom: -16,
+        marginTop: 16,
+        marginLeft: 16,
+        zIndex: 100,
+    },
+    deleteBtn: {
+        background: "white",
+        '&:hover': {
+            background: "#f50057",
+        },
+        boxShadow: "0 0 1px 1px rgba(0, 0, 0, 0.1)"
     }
 }));
 
@@ -48,9 +62,11 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
     });
     return (
         <>
-            <IconButton><CloseIcon/></IconButton>
             {count > 0 ? (
                 <>
+                    <div className={classes.delete}><IconButton size={"small"}
+                                                                className={classes.deleteBtn}><CloseIcon/></IconButton>
+                    </div>
                     <Card className={classes.card} onMouseOver={() => {
                         setState({raised: true, shadow: 2})
 

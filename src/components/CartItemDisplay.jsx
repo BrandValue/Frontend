@@ -13,7 +13,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
-        width: Math.min(window.innerWidth - 20, 425),
+        width: Math.min(window.innerWidth - 20, 450),
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #e5e5e5',
         boxShadow: theme.shadows[5],
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     scroll: {
         overflowX: "auto",
         overflowY: "auto",
-        height: Math.min(window.innerHeight - 20, 425)
+        height: Math.min(window.innerHeight - 20, 450)
     },
     bold: {
         fontWeight: "bolder"
