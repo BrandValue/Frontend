@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
+function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelete}) {
     const classes = useStyles();
     const {cartBtnText, hasItemInCart} = cartItem.item;
     const [, setBtnText] = useState(cartBtnText);
@@ -65,7 +65,13 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
             {count > 0 ? (
                 <>
                     <div className={classes.delete}><IconButton size={"small"}
-                                                                className={classes.deleteBtn}><CloseIcon/></IconButton>
+                                                                className={classes.deleteBtn}
+                                                                onClick={() => {
+                                                                    onCartItemDelete(cartItem.item);
+                                                                    setBtnText(cartItem.item.cartBtnText);
+                                                                    setItemCount(cartItem.count);
+                                                                }}>
+                        <CloseIcon/></IconButton>
                     </div>
                     <Card className={classes.card} onMouseOver={() => {
                         setState({raised: true, shadow: 2})

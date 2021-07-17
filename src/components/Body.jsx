@@ -57,6 +57,22 @@ function onSubBtnClick(data) {
     }
 }
 
+function onCartItemDelete(data) {
+    let idxFound = -1;
+    cart.forEach((cartItem, idx) => {
+        if (cartItem.item.id === data.id) {
+            idxFound = idx;
+        }
+    });
+    if (idxFound === -1) {
+        return;
+    }
+    cart[idxFound].count = 0;
+    cart[idxFound].item.hasItemInCart = false;
+    cart[idxFound].item.cartBtnText = 'Cart';
+    cart.splice(idxFound, 1);
+}
+
 function updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText) {
     setData(data);
     data.forEach((item, idx, arr) => {
@@ -127,7 +143,8 @@ function Body() {
                 aria-describedby="modal-description"
             >
                 {<CartItemDisplay cartData={cart} onClose={handleModalClose} onAddBtnClick={onAddBtnClick}
-                                  onSubBtnClick={onSubBtnClick} ref={refToCartItemDisplay}/>}
+                                  onSubBtnClick={onSubBtnClick} onCartItemDelete={onCartItemDelete}
+                                  ref={refToCartItemDisplay}/>}
             </Modal>
         </div>
     )

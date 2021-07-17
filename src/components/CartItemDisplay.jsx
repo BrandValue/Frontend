@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnClick}, ref) => {
+const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnClick, onCartItemDelete},
+                                    ref) => {
     const [modalStyle] = useState(getModalStyle());
     const classes = useStyles();
     return (
@@ -51,7 +52,7 @@ const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnC
                 {
                     cartData.map(cartItem => (
                         <SingleCartItem cartItem={cartItem} onSubBtnClick={onSubBtnClick} onAddBtnClick={onAddBtnClick}
-                                        key={cartItem.item.id}/>
+                                        onCartItemDelete={onCartItemDelete} key={cartItem.item.id}/>
                     ))
                 }
             </div>
