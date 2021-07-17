@@ -109,7 +109,7 @@ function FoodItem(props) {
                         }
                     </IconButton>
                     <ButtonGroup size="small" aria-label="small outlined button group">
-                        <Button variant="outlined" size="small" color="primary" className={classes.expand}
+                        <Button variant="outlined" size="small" color="secondary" className={classes.expand}
                                 onClick={() => {
                                     onSubBtnClick(foodItem);
                                     setBtnText(foodItem.cartBtnText);

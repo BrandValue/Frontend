@@ -40,7 +40,7 @@ const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnC
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
             <div className={classes.modalHeader}>
-                <ShoppingCartIcon/>
+                <span>Cart Summary</span>
                 <h2 className={classes.pointer} onClick={onClose}>&times;</h2>
             </div>
             <div className={classes.scroll} id="modal-description">
