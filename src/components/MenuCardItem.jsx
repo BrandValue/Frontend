@@ -68,10 +68,10 @@ function FoodItem(props) {
         onAddBtnClick,
         onSubBtnClick,
         hasItemInCart,
-        cartBtnText
+        cartBtnText,
+        setBtnText
     } = foodItem;
     const [favorite, setFavorite] = useState(isFavorite);
-    const [btnText, setBtnText] = useState(cartBtnText);
     const classes = useStyles();
     return (
         <>
@@ -121,7 +121,7 @@ function FoodItem(props) {
                                     onAddToCartClick(foodItem);
                                     setBtnText(foodItem.cartBtnText);
                                 }}>
-                            {btnText}
+                            {cartBtnText}
                         </Button>
                         <Button variant="outlined" size="small" color="primary" className={classes.expand}
                                 onClick={() => {

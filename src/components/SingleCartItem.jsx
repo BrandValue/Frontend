@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
     const classes = useStyles();
     const {cartBtnText, hasItemInCart} = cartItem.item;
-    const [_, setBtnText] = useState(cartBtnText);
+    const [, setBtnText] = useState(cartBtnText);
     const [count, setItemCount] = useState(cartItem.count);
     return (
         <div className={classes.root}>

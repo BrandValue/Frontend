@@ -57,7 +57,7 @@ function onSubBtnClick(data) {
     }
 }
 
-function updateViewAndAddFunction(data, setData, onAddToCartClick) {
+function updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText) {
     setData(data);
     data.forEach((item, idx, arr) => {
         arr[idx].onFavoriteClick = onFavoriteClick;
@@ -66,6 +66,7 @@ function updateViewAndAddFunction(data, setData, onAddToCartClick) {
         arr[idx].onSubBtnClick = onSubBtnClick;
         arr[idx].cartBtnText = 'Cart';
         arr[idx].hasItemInCart = false;
+        arr[idx].setBtnText = setBtnText;
     });
 }
 
@@ -82,6 +83,7 @@ function Body() {
     const [loading, setLoading] = useState(true);
     const [modalState, setModalState] = useState(false);
     const [segmentLoading, setSegmentLoading] = useState(false);
+    const [, setBtnText] = useState('');
 
     function handleModalClose() {
         setModalState(false);
@@ -93,7 +95,7 @@ function Body() {
 
     useEffect(() => {
         getRequest('food/food-item').then(({data}) => {
-            updateViewAndAddFunction(data, setData, onAddToCartClick);
+            updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
             setLoading(false);
         });
     }, []);
@@ -101,7 +103,7 @@ function Body() {
     const fetchData = (pageNumber, limit = 8) => {
         setSegmentLoading(true);
         getRequest('food/food-item').then(({data}) => {
-            updateViewAndAddFunction(data, setData, onAddToCartClick);
+            updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
             setSegmentLoading(false);
         });
     }
