@@ -5,10 +5,15 @@ import {Button, ButtonGroup, Checkbox} from "@material-ui/core";
 const useStyles = makeStyles(() => ({
     root: {
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingRight: 16
     },
     expand: {
         marginLeft: 'auto'
+    },
+    bold: {
+        fontWeight: "bolder"
     }
 }));
 
@@ -20,7 +25,7 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
     return (
         <div className={classes.root}>
             {count > 0 ? (<><Checkbox color={"primary"}/>
-                <span>{cartItem.item.title}</span>
+                <span className={classes.bold}>{cartItem.item.title}</span>
                 <ButtonGroup size="small" aria-label="small outlined button group">
                     <Button variant="outlined" size="small" color="primary" className={classes.expand}
                             onClick={() => {
@@ -39,7 +44,7 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
                         +
                     </Button>
                 </ButtonGroup>
-                <span>{count}</span></>) : ('')}
+                <span className={classes.bold}>{cartBtnText}</span></>) : ('')}
         </div>
     );
 }
