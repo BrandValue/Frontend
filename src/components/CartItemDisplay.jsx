@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {createRef, forwardRef, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 
 function getModalStyle() {
@@ -24,26 +24,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CartItemDisplay({cartData, onClose}) {
+const CartItemDisplay = forwardRef((props, ref) => {
     const [modalStyle] = useState(getModalStyle());
     const classes = useStyles();
     return (
-        <div style={modalStyle} className={classes.paper}>
-            {cartData.map(item => {
-                console.log(item);
-            })}
-            {
-                cartData.map(cartItem => (
-                    <p key={cartItem.item.id}>{cartItem.count}h</p>
-                ))
-            }
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <h2 onClick={onClose}>&times;</h2>
+        <div style={modalStyle} className={classes.paper} ref={ref} tabIndex="-1">
+            {/*{cartData.map(item => {*/}
+            {/*    console.log(item);*/}
+            {/*})}*/}
+            {/*{*/}
+            {/*    cartData.map(cartItem => (*/}
+            {/*        <p key={cartItem.item.id}>{cartItem.count}h</p>*/}
+            {/*    ))*/}
+            {/*}*/}
+            {/*<h2 id="simple-modal-title">Text in a modal</h2>*/}
+            {/*<h2 onClick={onClose}>&times;</h2>*/}
             <p id="simple-modal-description">
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </p>
         </div>
     );
-}
-
+});
 export default CartItemDisplay;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useRef, useState} from 'react';
 import InfiniteScroll from "./InfiniteScroll";
 import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
@@ -105,6 +105,7 @@ function Body() {
             setSegmentLoading(false);
         });
     }
+    const refToCartItemDisplay = createRef();
     return (
         <div className={classes.root}>
             {
@@ -121,7 +122,7 @@ function Body() {
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
             >
-                <CartItemDisplay cartData={cart} onClose={handleModalClose}/>
+                {<CartItemDisplay ref={refToCartItemDisplay}/>}
             </Modal>
         </div>
     )
