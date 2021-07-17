@@ -1,38 +1,37 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import FoodTypeIndicator from "./FoodTypeIndicator";
-import Rating from "./Rating";
-import Price from "./Price";
+import {Card, CardActions, CardHeader, CardMedia} from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import {Add, Remove} from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
     card: {
-        width: Math.min(285, window.innerWidth - 10),
+        width: Math.min(window.innerWidth - 30, 425),
         '&:hover': {
             background: "#fafafa",
         },
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        margin: "auto !important"
     },
     media: {
-        width: 100,
-        height: 30,
-        margin: 8,
-        paddingTop: "35.25%",
-        paddingRight: "35.25%",
-        borderRadius: 50
-    },
-    expand: {
-        marginLeft: 'auto',
+        width: "auto",
+        height: "auto",
+        paddingTop: "auto",
+        paddingRight: "auto",
+        borderRadius: 50,
+        margin: 4
     },
     adjustPadding: {
-        paddingTop: '4px!important',
+        paddingLeft: '0px!important',
         paddingBottom: '0px!important',
     },
     metaClasses: {
-        justifyContent: "space-between !important",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
     }
 }));
 
@@ -62,37 +61,21 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick}) {
                         />
                         <CardHeader
                             title={cartItem.item.title}
-                            subheader={cartItem.item.subHeader}
+                            subheader={`₹${cartItem.item.price.price} for ${cartItem.item.price.qty}`}
                             className={classes.adjustPadding}
                         />
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="div"
-                                        className={classes.metaClasses}>
-                                {cartItem.item.category === 'non-veg' ? <FoodTypeIndicator color={'green'}/> :
-                                    <FoodTypeIndicator color={'red'}/>} <Rating magnitude={cartItem.item.rating}/>
-                                <Price
-                                    costInformation={cartItem.item.price}/>
-                            </Typography>
-                        </CardContent>
                         <CardActions disableSpacing className={classes.metaClasses}>
-                            <ButtonGroup size="small" aria-label="small outlined button group">
-                                <Button variant="outlined" size="small" color="secondary" className={classes.expand}
-                                        onClick={() => {
-                                            onSubBtnClick(cartItem.item);
-                                            setBtnText(cartItem.item.cartBtnText);
-                                            setItemCount(cartItem.count);
-                                        }} disabled={!hasItemInCart}>
-                                    -
-                                </Button>
-                                <Button variant="outlined" size="small" color="primary" className={classes.expand}
-                                        onClick={() => {
-                                            onAddBtnClick(cartItem.item);
-                                            setBtnText(cartItem.item.cartBtnText);
-                                            setItemCount(cartItem.count);
-                                        }}>
-                                    +
-                                </Button>
-                            </ButtonGroup>
+                            <IconButton color={"secondary"} onClick={() => {
+                                onSubBtnClick(cartItem.item);
+                                setBtnText(cartItem.item.cartBtnText);
+                                setItemCount(cartItem.count);
+                            }} disabled={!hasItemInCart}><Remove/></IconButton>
+                            {cartBtnText}
+                            <IconButton color={"primary"} onClick={() => {
+                                onAddBtnClick(cartItem.item);
+                                setBtnText(cartItem.item.cartBtnText);
+                                setItemCount(cartItem.count);
+                            }}><Add/></IconButton>
                         </CardActions>
                     </Card>
                 </>) : ('')}

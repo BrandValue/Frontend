@@ -95,7 +95,7 @@ function FoodItem(props) {
                     <Typography variant="body2" color="textSecondary" component="div" className={classes.metaClasses}>
                         {category === 'non-veg' ? <FoodTypeIndicator color={'green'}/> :
                             <FoodTypeIndicator color={'red'}/>} <Rating magnitude={rating}/> <Price
-                        costInformation={price}/>
+                        costInformation={`₹${price.price} for ${price.qty}`}/>
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing className={classes.metaClasses}>

@@ -1,6 +1,5 @@
 import React, {forwardRef, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SingleCartItem from "./SingleCartItem";
 
 function getModalStyle() {
