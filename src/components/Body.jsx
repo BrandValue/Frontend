@@ -4,6 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import ItemsPlaceholder from "./ItemsPlaceholder";
 import {getRequest} from '../services/APIEndpoints';
 import {Modal} from "@material-ui/core";
+import CartItemDisplay from "./CartItemDisplay";
 
 let cart = [];
 
@@ -68,26 +69,10 @@ function updateViewAndAddFunction(data, setData, onAddToCartClick) {
     });
 }
 
-function getModalStyle() {
-    return {
-        top: `50%`,
-        left: `50%`,
-        transform: `translate(-50%, -50%)`,
-    };
-}
-
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: '1.5rem',
         display: "flex",
-    },
-    paper: {
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
     }
 }));
 
@@ -97,7 +82,6 @@ function Body() {
     const [loading, setLoading] = useState(true);
     const [modalState, setModalState] = useState(false);
     const [segmentLoading, setSegmentLoading] = useState(false);
-    const [modalStyle] = useState(getModalStyle);
 
     function handleModalClose() {
         setModalState(false);
@@ -121,15 +105,6 @@ function Body() {
             setSegmentLoading(false);
         });
     }
-
-    const modalBody = (
-        <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <p id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
-        </div>
-    );
     return (
         <div className={classes.root}>
             {
@@ -143,10 +118,10 @@ function Body() {
             <Modal
                 open={modalState}
                 onClose={handleModalClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
             >
-                {modalBody}
+                <CartItemDisplay cartData={cart} onClose={handleModalClose}/>
             </Modal>
         </div>
     )
