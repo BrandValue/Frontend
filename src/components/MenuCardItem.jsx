@@ -62,7 +62,6 @@ function FoodItem(props) {
         rating,
         category,
         isFavorite,
-        id,
         price,
         onFavoriteClick,
         onAddToCartClick,

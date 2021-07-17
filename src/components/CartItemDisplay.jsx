@@ -1,4 +1,4 @@
-import React, {createRef, forwardRef, useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 
 function getModalStyle() {
@@ -24,21 +24,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CartItemDisplay = forwardRef((props, ref) => {
+const CartItemDisplay = forwardRef(({cartData, onClose}, ref) => {
     const [modalStyle] = useState(getModalStyle());
     const classes = useStyles();
     return (
         <div style={modalStyle} className={classes.paper} ref={ref} tabIndex="-1">
-            {/*{cartData.map(item => {*/}
-            {/*    console.log(item);*/}
-            {/*})}*/}
-            {/*{*/}
-            {/*    cartData.map(cartItem => (*/}
-            {/*        <p key={cartItem.item.id}>{cartItem.count}h</p>*/}
-            {/*    ))*/}
-            {/*}*/}
-            {/*<h2 id="simple-modal-title">Text in a modal</h2>*/}
-            {/*<h2 onClick={onClose}>&times;</h2>*/}
+            {
+                cartData.map(cartItem => (
+                    <p key={cartItem.item.id}>{cartItem.count}h</p>
+                ))
+            }
+            <h2 id="simple-modal-title">Text in a modal</h2>
+            <h2 onClick={onClose}>&times;</h2>
             <p id="simple-modal-description">
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </p>

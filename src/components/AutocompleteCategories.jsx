@@ -30,7 +30,7 @@ export default function AutocompleteCategories(props) {
         return () => {
             active = false;
         };
-    }, [loading]);
+    }, [loading, URL]);
 
     React.useEffect(() => {
         if (!open) {
