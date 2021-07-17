@@ -124,7 +124,8 @@ function Body() {
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
             >
-                {<CartItemDisplay cartData={cart} onClose={handleModalClose} ref={refToCartItemDisplay}/>}
+                {<CartItemDisplay cartData={cart} onClose={handleModalClose} onAddBtnClick={onAddBtnClick}
+                                  onSubBtnClick={onSubBtnClick} ref={refToCartItemDisplay}/>}
             </Modal>
         </div>
     )

@@ -1,5 +1,7 @@
 import React, {forwardRef, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SingleCartItem from "./SingleCartItem";
 
 function getModalStyle() {
     return {
@@ -11,34 +13,42 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: "flex",
-        alignItems: "center"
-    },
-    paper: {
         position: 'absolute',
-        width: 400,
+        width: "auto",
+        minWidth: 250,
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        border: '2px solid #e5e5e5',
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        padding: 8
+    },
+    modalHeader: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 8
+    },
+    pointer: {
+        cursor: "pointer"
     }
 }));
 
-const CartItemDisplay = forwardRef(({cartData, onClose}, ref) => {
+const CartItemDisplay = forwardRef(({cartData, onClose, onAddBtnClick, onSubBtnClick}, ref) => {
     const [modalStyle] = useState(getModalStyle());
     const classes = useStyles();
     return (
-        <div style={modalStyle} className={classes.paper} ref={ref} tabIndex="-1">
-            {
-                cartData.map(cartItem => (
-                    <p key={cartItem.item.id}>{cartItem.count}h</p>
-                ))
-            }
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <h2 onClick={onClose}>&times;</h2>
-            <p id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
+        <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
+            <div className={classes.modalHeader}>
+                <ShoppingCartIcon/>
+                <h2 className={classes.pointer} onClick={onClose}>&times;</h2>
+            </div>
+            <div id="modal-description">
+                {
+                    cartData.map(cartItem => (
+                        <SingleCartItem cartItem={cartItem} onSubBtnClick={onSubBtnClick} onAddBtnClick={onAddBtnClick}
+                                        key={cartItem.item.id}/>
+                    ))
+                }
+            </div>
         </div>
     );
 });
