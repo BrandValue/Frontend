@@ -12,6 +12,19 @@ function addItemsToCart(item, count) {
     cart.push({item, count});
 }
 
+function getCartValue() {
+    let totalValue = 0;
+    cart.forEach(cartItem => {
+        totalValue += parseInt(cartItem.item.price.price) * parseInt(cartItem.count);
+    });
+    totalValue += 0.18 * totalValue;
+    const formatter = new Intl.NumberFormat('en-in', {
+        style: 'currency',
+        currency: 'INR',
+    })
+    return formatter.format(totalValue);
+}
+
 function onFavoriteClick(data, setState) {
     return new Promise((resolve, reject) => {
         // send data
@@ -101,6 +114,7 @@ function Body() {
     const [segmentLoading, setSegmentLoading] = useState(false);
     const [, setBtnText] = useState('');
     const [cartLength, setCartLength] = useState(cart.length);
+    const [cartValue, setCartValue] = useState(getCartValue());
 
     function handleModalClose() {
         setModalState(false);
@@ -108,6 +122,7 @@ function Body() {
 
     function onAddToCartClick(data) {
         setCartLength(cart.length);
+        setCartValue(getCartValue());
         setModalState(true);
     }
 
@@ -147,6 +162,7 @@ function Body() {
                 {<CartItemDisplay cartData={cart} onClose={handleModalClose} onAddBtnClick={onAddBtnClick}
                                   onSubBtnClick={onSubBtnClick} onCartItemDelete={onCartItemDelete}
                                   setCartLength={setCartLength} cartLength={cartLength}
+                                  getCartValue={getCartValue} setCartValue={setCartValue} cartValue={cartValue}
                                   ref={refToCartItemDisplay}/>}
             </Modal>
         </div>

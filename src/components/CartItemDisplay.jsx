@@ -67,14 +67,18 @@ const CartItemDisplay = forwardRef(({
                                         onSubBtnClick,
                                         onCartItemDelete,
                                         setCartLength,
-                                        cartLength
+                                        cartLength,
+                                        cartValue,
+                                        setCartValue,
+                                        getCartValue
                                     },
                                     ref) => {
     const [modalStyle] = useState(getModalStyle());
     const [onDelete, setOnDelete] = useState(false);
     useEffect(() => {
         setCartLength(cartData.length);
-    }, [onDelete, cartData.length, setCartLength]);
+        setCartValue(getCartValue());
+    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue]);
     const classes = useStyles();
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
@@ -97,12 +101,19 @@ const CartItemDisplay = forwardRef(({
                 }
             </div>
             <div className={classes.bottomRow}>
-                    <Button variant="outlined" size="small" color="secondary">
-                        Cancel
-                    </Button>
-                    <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary">
-                        Checkout
-                    </Button>
+                {
+                    cartLength ? (
+                        <div className={classes.bold}>Total (Including GST): {cartValue}</div>
+                    ) : ('')
+                }
+            </div>
+            <div className={classes.bottomRow}>
+                <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
+                    Cancel
+                </Button>
+                <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary">
+                    Checkout
+                </Button>
             </div>
         </div>
     );
