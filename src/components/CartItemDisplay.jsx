@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import SingleCartItem from "./SingleCartItem";
 import Neon from "./NeonEffect/Neon";
 import WallImage from "../assets/backgroundImages/wall-background.jpg";
+import {Button, ButtonGroup, TextField} from "@material-ui/core";
 
 function getModalStyle() {
     return {
@@ -46,6 +47,16 @@ const useStyles = makeStyles((theme) => ({
     },
     bold: {
         fontWeight: "bolder"
+    },
+    bottomRow: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        marginTop: 16,
+        marginBottom: 16
+    },
+    leftMargin: {
+        marginLeft: 4
     }
 }));
 
@@ -84,6 +95,14 @@ const CartItemDisplay = forwardRef(({
                     ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
 
                 }
+            </div>
+            <div className={classes.bottomRow}>
+                    <Button variant="outlined" size="small" color="secondary">
+                        Cancel
+                    </Button>
+                    <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary">
+                        Checkout
+                    </Button>
             </div>
         </div>
     );
