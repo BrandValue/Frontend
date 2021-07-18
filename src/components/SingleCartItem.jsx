@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelete}) {
+function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelete, onDelete}) {
     const classes = useStyles();
     const {cartBtnText, hasItemInCart} = cartItem.item;
     const [, setBtnText] = useState(cartBtnText);
@@ -70,6 +70,7 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelet
                                                                     onCartItemDelete(cartItem.item);
                                                                     setBtnText(cartItem.item.cartBtnText);
                                                                     setItemCount(cartItem.count);
+                                                                    onDelete(del => !del);
                                                                 }}>
                         <CloseIcon/></IconButton>
                     </div>
@@ -94,12 +95,14 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelet
                                 onSubBtnClick(cartItem.item);
                                 setBtnText(cartItem.item.cartBtnText);
                                 setItemCount(cartItem.count);
+                                onDelete(del => !del);
                             }} disabled={!hasItemInCart}><Remove/></IconButton>
                             {cartBtnText}
                             <IconButton color={"primary"} onClick={() => {
                                 onAddBtnClick(cartItem.item);
                                 setBtnText(cartItem.item.cartBtnText);
                                 setItemCount(cartItem.count);
+                                onDelete(del => !del);
                             }}><Add/></IconButton>
                         </CardActions>
                     </Card>

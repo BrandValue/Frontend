@@ -100,12 +100,14 @@ function Body() {
     const [modalState, setModalState] = useState(false);
     const [segmentLoading, setSegmentLoading] = useState(false);
     const [, setBtnText] = useState('');
+    const [cartLength, setCartLength] = useState(cart.length);
 
     function handleModalClose() {
         setModalState(false);
     }
 
     function onAddToCartClick(data) {
+        setCartLength(cart.length);
         setModalState(true);
     }
 
@@ -144,6 +146,7 @@ function Body() {
             >
                 {<CartItemDisplay cartData={cart} onClose={handleModalClose} onAddBtnClick={onAddBtnClick}
                                   onSubBtnClick={onSubBtnClick} onCartItemDelete={onCartItemDelete}
+                                  setCartLength={setCartLength} cartLength={cartLength}
                                   ref={refToCartItemDisplay}/>}
             </Modal>
         </div>
