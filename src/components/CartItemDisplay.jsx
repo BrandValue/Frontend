@@ -34,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
     scroll: {
         overflowX: "auto",
         overflowY: "auto",
-        height: Math.min(window.innerHeight - 20, 450),
+        height: Math.min(window.innerHeight - 20, 350),
     },
     noItems: {
         overflowX: "auto",
         overflowY: "auto",
-        height: Math.min(window.innerHeight - 20, 450),
+        height: Math.min(window.innerHeight - 20, 350),
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -75,6 +75,17 @@ const CartItemDisplay = forwardRef(({
                                     ref) => {
     const [modalStyle] = useState(getModalStyle());
     const [onDelete, setOnDelete] = useState(false);
+    let tax = 0.18 * cartValue
+    let deliveryCharges = 15;
+    const formatter = new Intl.NumberFormat('en-in', {
+        style: 'currency',
+        currency: 'INR',
+    });
+    let totalValue = tax + cartValue + deliveryCharges;
+    totalValue = formatter.format(totalValue);
+    tax = formatter.format(tax);
+    deliveryCharges = formatter.format(deliveryCharges);
+    cartValue = formatter.format(cartValue);
     useEffect(() => {
         setCartLength(cartData.length);
         setCartValue(getCartValue());
@@ -100,10 +111,16 @@ const CartItemDisplay = forwardRef(({
 
                 }
             </div>
-            <div className={classes.bottomRow}>
+            <div>
                 {
                     cartLength ? (
-                        <div className={classes.bold}>Total (Including GST): {cartValue}</div>
+                        <>
+                            <div className={`${classes.bottomRow} ${classes.bold}`}>Cart Total: {cartValue}</div>
+                            <div className={`${classes.bottomRow} ${classes.bold}`}>Delivery
+                                Charges: {deliveryCharges}</div>
+                            <div className={`${classes.bottomRow} ${classes.bold}`}>Tax: {tax}</div>
+                            <div className={`${classes.bottomRow} ${classes.bold}`}>Total: {totalValue}</div>
+                        </>
                     ) : ('')
                 }
             </div>
@@ -111,7 +128,7 @@ const CartItemDisplay = forwardRef(({
                 <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
                     Cancel
                 </Button>
-                <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary">
+                <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary" disabled={!cartLength}>
                     Checkout
                 </Button>
             </div>

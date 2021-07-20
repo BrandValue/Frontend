@@ -17,12 +17,7 @@ function getCartValue() {
     cart.forEach(cartItem => {
         totalValue += parseInt(cartItem.item.price.price) * parseInt(cartItem.count);
     });
-    totalValue += 0.18 * totalValue;
-    const formatter = new Intl.NumberFormat('en-in', {
-        style: 'currency',
-        currency: 'INR',
-    })
-    return formatter.format(totalValue);
+    return totalValue;
 }
 
 function onFavoriteClick(data, setState) {
