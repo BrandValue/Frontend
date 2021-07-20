@@ -45,9 +45,9 @@ const useStyles = makeStyles(() => ({
     deleteBtn: {
         background: "white",
         '&:hover': {
-            background: "#f50057",
+            background: "#f6a5c0",
         },
-        boxShadow: "0 0 1px 1px rgba(0, 0, 0, 0.1)"
+        boxShadow: "0 0 1px 1px rgba(0, 0, 0, 0.2)"
     }
 }));
 
@@ -71,7 +71,13 @@ function SingleCartItem({cartItem, onSubBtnClick, onAddBtnClick, onCartItemDelet
                                                                     setBtnText(cartItem.item.cartBtnText);
                                                                     setItemCount(cartItem.count);
                                                                     onDelete(del => !del);
-                                                                }}>
+                                                                }}
+                                                                onMouseOver={() => {
+                                                                    setState({raised: true, shadow: 2})
+
+                                                                }}
+                                                                onMouseOut={() => setState({raised: false, shadow: 1})}
+                                                                raised={state.raised.toString()} zdepth={state.shadow}>
                         <CloseIcon/></IconButton>
                     </div>
                     <Card className={classes.card} onMouseOver={() => {

@@ -3,7 +3,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import SingleCartItem from "./SingleCartItem";
 import Neon from "./NeonEffect/Neon";
 import WallImage from "../assets/backgroundImages/wall-background.jpg";
-import {Button, ButtonGroup, TextField} from "@material-ui/core";
+import {Button, IconButton} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
 function getModalStyle() {
     return {
@@ -28,8 +29,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         padding: 8
     },
-    pointer: {
-        cursor: "pointer"
+    secondaryBackground: {
+        '&:hover': {
+            background: "#f6a5c0",
+        },
     },
     scroll: {
         overflowX: "auto",
@@ -95,7 +98,7 @@ const CartItemDisplay = forwardRef(({
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
             <div className={classes.modalHeader}>
                 <span className={classes.bold}>Cart Summary</span>
-                <h2 className={classes.pointer} onClick={onClose}>&times;</h2>
+                <IconButton className={classes.secondaryBackground} onClick={onClose}><CloseIcon/></IconButton>
             </div>
             <div className={classes.scroll} id="modal-description">
                 {
@@ -128,7 +131,8 @@ const CartItemDisplay = forwardRef(({
                 <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
                     Cancel
                 </Button>
-                <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary" disabled={!cartLength}>
+                <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
+                        disabled={!cartLength}>
                     Checkout
                 </Button>
             </div>
