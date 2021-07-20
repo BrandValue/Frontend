@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
         overflowX: "auto",
         overflowY: "auto",
         height: Math.min(window.innerHeight - 20, 350),
+        margin: 8
     },
     noItems: {
         overflowX: "auto",

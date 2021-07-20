@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(() => ({
     card: {
-        width: Math.min(window.innerWidth - 30, 400),
+        width: Math.min(window.innerWidth - 1.5 * window.innerWidth, 400),
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
         justifyContent: "flex-start",
         marginBottom: -16,
         marginTop: 16,
-        marginLeft: 16,
+        marginLeft: 4,
         zIndex: 100,
     },
     deleteBtn: {
