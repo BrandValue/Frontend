@@ -136,7 +136,9 @@ const CartItemDisplay = forwardRef(({
                 </Button>
                 <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
                         disabled={!cartLength}>
-                    Checkout
+                    {
+                        cartLength ? (`Pay ${totalValue}`) : ('Checkout')
+                    }
                 </Button>
             </div>
         </div>
