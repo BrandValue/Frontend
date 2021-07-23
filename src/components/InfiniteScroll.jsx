@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function InfiniteScroll(props) {
-    const {data: currState, loading, onPageEnd} = props;
+    const {data: currState, loading, onPageEnd, cartItems} = props;
     const [posts, setPosts] = useState([]);
     const [segmentLoading, setSegmentLoading] = useState(loading);
     const classes = useStyles();
@@ -41,16 +41,33 @@ function InfiniteScroll(props) {
     return (
         <div className={'row'}>
             {
-                posts.map((elem, idx) => {
+                posts.map((elem, idx, array) => {
+                    let foundIdx = -1, found = false;
+                    cartItems.forEach((cartItem, idx) => {
+                        if (cartItem.item.id === elem.id) {
+                            found = true;
+                            foundIdx = idx;
+                        }
+                    });
+
+                    if (found) {
+                        const count = cartItems[foundIdx].count;
+                        const cartItem = cartItems[foundIdx].item;
+                        cartItems.splice(foundIdx, 1);
+                        elem.cartBtnText = cartItem.cartBtnText;
+                        elem.hasItemInCart = true;
+                        cartItems.push({item: elem, count});
+                    }
+
                     if (idx >= posts.length - 5) {
                         return (<div ref={lastItem} className={`col ${classes.margin}`} key={idx}>
                             <MenuCardItem data={elem}/>
                         </div>);
                     } else {
-                        return (<div className={`col ${classes.margin}`} key={idx}><MenuCardItem data={elem}/></div>);
+                        return (
+                            <div className={`col ${classes.margin}`} key={idx}><MenuCardItem data={elem}/></div>);
                     }
                 })
-
             }
             {
                 segmentLoading ? <ItemsPlaceholder height={`${200}px`} width={`${200}px`}

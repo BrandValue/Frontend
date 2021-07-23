@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     ButtonGroup,
@@ -71,6 +71,9 @@ function FoodItem(props) {
         cartBtnText,
         setBtnText
     } = foodItem;
+    useEffect(() => {
+        setBtnText(foodItem.cartBtnText);
+    }, [setBtnText, foodItem]);
     const [favorite, setFavorite] = useState(isFavorite);
     const classes = useStyles();
     return (

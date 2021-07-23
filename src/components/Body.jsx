@@ -42,6 +42,7 @@ function onAddBtnClick(data) {
         data.hasItemInCart = true;
         data.cartBtnText = `1 Set`;
     }
+    localStorage.setItem('cartItems', JSON.stringify(cart));
 }
 
 function onSubBtnClick(data) {
@@ -63,6 +64,7 @@ function onSubBtnClick(data) {
         cart[idxFound].item.cartBtnText = `${cart[idxFound].count} Set`;
         cart[idxFound].item.hasItemInCart = true;
     }
+    localStorage.setItem('cartItems', JSON.stringify(cart));
 }
 
 function onCartItemDelete(data) {
@@ -79,6 +81,7 @@ function onCartItemDelete(data) {
     cart[idxFound].item.hasItemInCart = false;
     cart[idxFound].item.cartBtnText = 'Cart';
     cart.splice(idxFound, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cart));
 }
 
 function updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText) {
@@ -125,15 +128,16 @@ function Body() {
         getRequest('food/food-item').then(({data}) => {
             updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
             setLoading(false);
+            cart = JSON.parse(localStorage.getItem('cartItems')) || [];
         });
     }, []);
 
     const fetchData = (pageNumber, limit = 8) => {
-        setSegmentLoading(true);
-        getRequest('food/food-item').then(({data}) => {
-            updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
-            setSegmentLoading(false);
-        });
+        // setSegmentLoading(true);
+        // getRequest('food/food-item').then(({data}) => {
+        //     updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
+        //     setSegmentLoading(false);
+        // });
     }
 
     const refToCartItemDisplay = createRef();
@@ -145,7 +149,7 @@ function Body() {
                     <ItemsPlaceholder height={`${200}px`} width={`${200}px`}
                                       repeat={Math.floor(window.innerWidth / 224) * 2}
                                       animation={'wave'}/>) : (
-                    <InfiniteScroll data={data} loading={segmentLoading} onPageEnd={fetchData}/>
+                    <InfiniteScroll data={data} loading={segmentLoading} onPageEnd={fetchData} cartItems={cart}/>
                 )
             }
             <Modal
