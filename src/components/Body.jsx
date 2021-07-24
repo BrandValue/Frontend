@@ -6,6 +6,7 @@ import {getRequest} from '../services/APIEndpoints';
 import {Modal} from "@material-ui/core";
 import CartItemDisplay from "./CartItemDisplay";
 
+let id = 0;
 let cart = [];
 
 function addItemsToCart(item, count) {
@@ -87,6 +88,7 @@ function onCartItemDelete(data) {
 function updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText) {
     setData(data);
     data.forEach((item, idx, arr) => {
+        arr[idx].id = id++;
         arr[idx].onFavoriteClick = onFavoriteClick;
         arr[idx].onAddToCartClick = onAddToCartClick;
         arr[idx].onAddBtnClick = onAddBtnClick;
