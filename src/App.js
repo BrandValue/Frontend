@@ -1,4 +1,4 @@
-import Header from "./components/header";
+import Header from "./components/Header";
 import TopRow from "./components/TopRow"
 import Body from "./components/Body";
 import SortAndFilter from "./components/SortAndFilter";
