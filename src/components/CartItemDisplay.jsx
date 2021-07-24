@@ -81,7 +81,8 @@ const CartItemDisplay = forwardRef(({
                                     ref) => {
     const [modalStyle] = useState(getModalStyle());
     const [onDelete, setOnDelete] = useState(false);
-    let tax = 0.18 * cartValue
+    let tax = 0.18 * cartValue;
+    document.title = `Let's eat`;
     let deliveryCharges = 15;
     const formatter = new Intl.NumberFormat('en-in', {
         style: 'currency',

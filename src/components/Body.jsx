@@ -125,10 +125,16 @@ function Body() {
     }
 
     useEffect(() => {
+        cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if (cart.length) {
+            document.title = `(${cart.length}) Let's eat`;
+        }
+    }, []);
+
+    useEffect(() => {
         getRequest('food/food-item').then(({data}) => {
             updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
             setLoading(false);
-            cart = JSON.parse(localStorage.getItem('cartItems')) || [];
         });
     }, []);
 
