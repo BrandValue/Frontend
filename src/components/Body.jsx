@@ -133,11 +133,11 @@ function Body() {
     }, []);
 
     const fetchData = (pageNumber, limit = 8) => {
-        // setSegmentLoading(true);
-        // getRequest('food/food-item').then(({data}) => {
-        //     updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
-        //     setSegmentLoading(false);
-        // });
+        setSegmentLoading(true);
+        getRequest('food/food-item').then(({data}) => {
+            updateViewAndAddFunction(data, setData, onAddToCartClick, setBtnText);
+            setSegmentLoading(false);
+        });
     }
 
     const refToCartItemDisplay = createRef();
