@@ -121,6 +121,40 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
     )
 }
 
+function showPaymentView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
+                         setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState) {
+    return (
+        <>
+            <div className={classes.modalHeader}>
+                <IconButton className={classes.secondaryBackground} onClick={() => {
+                    setViewState('cart');
+                }}><ArrowBack/></IconButton>
+                <span className={classes.bold}>Order Summary</span>
+                <IconButton className={classes.secondaryBackground}
+                            onClick={onClose}><CloseIcon/></IconButton>
+            </div>
+            <div id="modal-description">
+                {
+                    cartLength ? (
+                        <PaymentAndDeliverySummary totalValue={totalValue} cartData={cartData}/>
+                    ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
+
+                }
+            </div>
+            <div className={classes.bottomRow}>
+                <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
+                    Cancel
+                </Button>
+                <Button className={classes.leftMargin} variant={"contained"} size="small"
+                        color="primary"
+                        disabled={!cartLength}>
+                    Confirm
+                </Button>
+            </div>
+        </>
+    )
+}
+
 const CartItemDisplay = forwardRef(({
                                         cartData,
                                         onClose,
@@ -162,41 +196,10 @@ const CartItemDisplay = forwardRef(({
                     onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
                     totalValue, cartValue, setViewState)
                     :
-                    (
-                        <>
-                            <div className={classes.modalHeader}>
-                                <IconButton className={classes.secondaryBackground} onClick={() => {
-                                    setViewState('cart');
-                                }}><ArrowBack/></IconButton>
-                                <span className={classes.bold}>Order Summary</span>
-                                <IconButton className={classes.secondaryBackground}
-                                            onClick={onClose}><CloseIcon/></IconButton>
-                            </div>
-                            <div id="modal-description">
-                                {
-                                    cartLength ? (
-                                        <PaymentAndDeliverySummary totalValue={totalValue} cartData={cartData}/>
-                                    ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
+                    showPaymentView(classes, onClose, cartLength, cartData,
+                        onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
+                        totalValue, cartValue, setViewState)
 
-                                }
-                            </div>
-                            <div className={classes.bottomRow}>
-                                <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
-                                    Cancel
-                                </Button>
-                                <Button className={classes.leftMargin} variant={"contained"} size="small"
-                                        color="primary"
-                                        onClick={() => {
-                                            setViewState('payment');
-                                        }}
-                                        disabled={!cartLength}>
-                                    {
-                                        cartLength ? (`Pay ${totalValue}`) : ('Checkout')
-                                    }
-                                </Button>
-                            </div>
-                        </>
-                    )
             }
         </div>
     );

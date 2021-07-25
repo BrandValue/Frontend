@@ -6,6 +6,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OrderSummary from "./OrderSummary";
+import {LocationOn, Payment, Receipt} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,36 +25,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaymentAndDeliverySummary({totalValue, cartData}) {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState('panel1');
+    const [expanded, setExpanded] = React.useState('');
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+    function handleChange(panel) {
+        return (event, isExpanded) => {
+            setExpanded(isExpanded ? panel : false);
+        }
+    }
 
     return (
         <div className={classes.root}>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <Accordion expanded={expanded === 'orderSummary'} onChange={handleChange('orderSummary')}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
+                    aria-controls="orderSummary-content"
+                    id="orderSummary-header"
                 >
-                    <Typography className={classes.heading}>Order Summary</Typography>
+                    <Typography className={classes.heading}><Receipt/></Typography>
                     <Typography className={classes.secondaryHeading}>Pay {totalValue}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <OrderSummary cartData={cartData}/>
                 </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <Accordion expanded={expanded === 'addressSummary'} onChange={handleChange('addressSummary')}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel2bh-content"
-                    id="panel2bh-header"
+                    aria-controls="addressSummary-content"
+                    id="addressSummary-header"
                 >
-                    <Typography className={classes.heading}>Users</Typography>
+                    <Typography className={classes.heading}><LocationOn/></Typography>
                     <Typography className={classes.secondaryHeading}>
-                        You are currently not an owner
+                        Deliver to home
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -63,31 +66,16 @@ export default function PaymentAndDeliverySummary({totalValue, cartData}) {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <Accordion expanded={expanded === 'paymentOptions'} onChange={handleChange('paymentOptions')}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel3bh-content"
-                    id="panel3bh-header"
+                    aria-controls="paymentOptions-content"
+                    id="paymentOptions-header"
                 >
-                    <Typography className={classes.heading}>Advanced settings</Typography>
+                    <Typography className={classes.heading}><Payment/></Typography>
                     <Typography className={classes.secondaryHeading}>
-                        Filtering has been entirely disabled for whole web server
+                        Pay using Credit Card
                     </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel4bh-content"
-                    id="panel4bh-header"
-                >
-                    <Typography className={classes.heading}>Personal data</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
