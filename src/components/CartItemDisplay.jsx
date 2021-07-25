@@ -6,7 +6,7 @@ import WallImage from "../assets/backgroundImages/wall-background.jpg";
 import {Button, IconButton} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import {ArrowBack} from "@material-ui/icons";
-import OrderSingleItem from "./OrderSingleItem";
+import PaymentAndDeliverySummary from "./PaymentAndDeliverySummary";
 
 function getModalStyle() {
     return {
@@ -159,7 +159,8 @@ const CartItemDisplay = forwardRef(({
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1" id={'modalParent'}>
             {
                 viewState === 'cart' ? showCartView(classes, onClose, cartLength, cartData,
-                    onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState)
+                    onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
+                    totalValue, cartValue, setViewState)
                     :
                     (
                         <>
@@ -171,29 +172,12 @@ const CartItemDisplay = forwardRef(({
                                 <IconButton className={classes.secondaryBackground}
                                             onClick={onClose}><CloseIcon/></IconButton>
                             </div>
-                            <div className={classes.scroll} id="modal-description">
+                            <div id="modal-description">
                                 {
                                     cartLength ? (
-                                        cartData.map(cartItem => (
-                                            <OrderSingleItem cartItem={cartItem} key={cartItem.item.id}/>
-                                        ))
+                                        <PaymentAndDeliverySummary totalValue={totalValue} cartData={cartData}/>
                                     ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
 
-                                }
-                            </div>
-                            <div>
-                                {
-                                    cartLength ? (
-                                        <>
-                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Cart
-                                                Total: {cartValue}</div>
-                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Delivery
-                                                Charges: {deliveryCharges}</div>
-                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Tax: {tax}</div>
-                                            <div
-                                                className={`${classes.bottomRow} ${classes.bold}`}>Total: {totalValue}</div>
-                                        </>
-                                    ) : ('')
                                 }
                             </div>
                             <div className={classes.bottomRow}>

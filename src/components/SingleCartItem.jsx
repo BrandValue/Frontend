@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(() => ({
     card: {
-        width: Math.min(window.innerWidth - 1.5 * window.innerWidth, 400),
+        width: "auto",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

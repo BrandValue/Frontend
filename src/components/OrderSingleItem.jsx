@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: Math.min(window.innerWidth - 20, 400),
+        width: "auto",
         transition: '0.3s',
         '&:hover': {
             boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)'
