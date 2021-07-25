@@ -115,6 +115,7 @@ function Body() {
     const [, setBtnText] = useState('');
     const [cartLength, setCartLength] = useState(cart.length);
     const [cartValue, setCartValue] = useState(getCartValue());
+    const [viewState, setViewState] = useState('cart');
 
     function handleModalClose() {
         setModalState(false);
@@ -170,6 +171,7 @@ function Body() {
                                   onSubBtnClick={onSubBtnClick} onCartItemDelete={onCartItemDelete}
                                   setCartLength={setCartLength} cartLength={cartLength}
                                   getCartValue={getCartValue} setCartValue={setCartValue} cartValue={cartValue}
+                                  viewState={viewState} setViewState={setViewState}
                                   ref={refToCartItemDisplay}/>}
             </Modal>
         </div>

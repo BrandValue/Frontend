@@ -5,6 +5,8 @@ import Neon from "./NeonEffect/Neon";
 import WallImage from "../assets/backgroundImages/wall-background.jpg";
 import {Button, IconButton} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import {ArrowBack} from "@material-ui/icons";
+import OrderSingleItem from "./OrderSingleItem";
 
 function getModalStyle() {
     return {
@@ -66,40 +68,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CartItemDisplay = forwardRef(({
-                                        cartData,
-                                        onClose,
-                                        onAddBtnClick,
-                                        onSubBtnClick,
-                                        onCartItemDelete,
-                                        setCartLength,
-                                        cartLength,
-                                        cartValue,
-                                        setCartValue,
-                                        getCartValue
-                                    },
-                                    ref) => {
-    const [modalStyle] = useState(getModalStyle());
-    const [onDelete, setOnDelete] = useState(false);
-    let tax = 0.18 * cartValue;
-    document.title = `Let's eat`;
-    let deliveryCharges = 15;
-    const formatter = new Intl.NumberFormat('en-in', {
-        style: 'currency',
-        currency: 'INR',
-    });
-    let totalValue = tax + cartValue + deliveryCharges;
-    totalValue = formatter.format(totalValue);
-    tax = formatter.format(tax);
-    deliveryCharges = formatter.format(deliveryCharges);
-    cartValue = formatter.format(cartValue);
-    useEffect(() => {
-        setCartLength(cartData.length);
-        setCartValue(getCartValue());
-    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue]);
-    const classes = useStyles();
+function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
+                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState) {
     return (
-        <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1">
+        <>
             <div className={classes.modalHeader}>
                 <span className={classes.bold}>Cart Summary</span>
                 <IconButton className={classes.secondaryBackground} onClick={onClose}><CloseIcon/></IconButton>
@@ -136,12 +108,112 @@ const CartItemDisplay = forwardRef(({
                     Cancel
                 </Button>
                 <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
+                        onClick={() => {
+                            setViewState('payment');
+                        }}
                         disabled={!cartLength}>
                     {
                         cartLength ? (`Pay ${totalValue}`) : ('Checkout')
                     }
                 </Button>
             </div>
+        </>
+    )
+}
+
+const CartItemDisplay = forwardRef(({
+                                        cartData,
+                                        onClose,
+                                        onAddBtnClick,
+                                        onSubBtnClick,
+                                        onCartItemDelete,
+                                        setCartLength,
+                                        cartLength,
+                                        cartValue,
+                                        setCartValue,
+                                        getCartValue,
+                                        viewState,
+                                        setViewState
+                                    },
+                                    ref) => {
+    const [modalStyle] = useState(getModalStyle());
+    const [onDelete, setOnDelete] = useState(false);
+    let tax = 0.18 * cartValue;
+    document.title = `Let's eat`;
+    let deliveryCharges = 15;
+    const formatter = new Intl.NumberFormat('en-in', {
+        style: 'currency',
+        currency: 'INR',
+    });
+    let totalValue = tax + cartValue + deliveryCharges;
+    totalValue = formatter.format(totalValue);
+    tax = formatter.format(tax);
+    deliveryCharges = formatter.format(deliveryCharges);
+    cartValue = formatter.format(cartValue);
+    useEffect(() => {
+        setCartLength(cartData.length);
+        setCartValue(getCartValue());
+    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue]);
+    const classes = useStyles();
+    return (
+        <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1" id={'modalParent'}>
+            {
+                viewState === 'cart' ? showCartView(classes, onClose, cartLength, cartData,
+                    onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState)
+                    :
+                    (
+                        <>
+                            <div className={classes.modalHeader}>
+                                <IconButton className={classes.secondaryBackground} onClick={() => {
+                                    setViewState('cart');
+                                }}><ArrowBack/></IconButton>
+                                <span className={classes.bold}>Order Summary</span>
+                                <IconButton className={classes.secondaryBackground}
+                                            onClick={onClose}><CloseIcon/></IconButton>
+                            </div>
+                            <div className={classes.scroll} id="modal-description">
+                                {
+                                    cartLength ? (
+                                        cartData.map(cartItem => (
+                                            <OrderSingleItem cartItem={cartItem} key={cartItem.item.id}/>
+                                        ))
+                                    ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
+
+                                }
+                            </div>
+                            <div>
+                                {
+                                    cartLength ? (
+                                        <>
+                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Cart
+                                                Total: {cartValue}</div>
+                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Delivery
+                                                Charges: {deliveryCharges}</div>
+                                            <div className={`${classes.bottomRow} ${classes.bold}`}>Tax: {tax}</div>
+                                            <div
+                                                className={`${classes.bottomRow} ${classes.bold}`}>Total: {totalValue}</div>
+                                        </>
+                                    ) : ('')
+                                }
+                            </div>
+                            <div className={classes.bottomRow}>
+                                <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
+                                    Cancel
+                                </Button>
+                                <Button className={classes.leftMargin} variant={"contained"} size="small"
+                                        color="primary"
+                                        onClick={() => {
+                                            setViewState('payment');
+                                        }}
+                                        disabled={!cartLength}>
+                                    {
+                                        cartLength ? (`Pay ${totalValue}`) : ('Checkout')
+                                    }
+                                </Button>
+                            </div>
+                        </>
+                    )
+            }
         </div>
     );
 });
