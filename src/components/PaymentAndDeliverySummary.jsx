@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OrderSummary from "./OrderSummary";
 import {LocationOn, Payment, Receipt} from "@material-ui/icons";
+import DeliveryAddress from "./DeliveryAddress";
+import PaymentOptions from "./PaymentOptions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaymentAndDeliverySummary({totalValue, cartData}) {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState('');
+    const [expanded, setExpanded] = useState('');
+    const [deliveryText, setDeliveryText] = useState('Select Delivery Location');
+    const [paymentText, setPaymentText] = useState('Select Payment Mode');
 
     function handleChange(panel) {
         return (event, isExpanded) => {
@@ -56,14 +60,11 @@ export default function PaymentAndDeliverySummary({totalValue, cartData}) {
                 >
                     <Typography className={classes.heading}><LocationOn/></Typography>
                     <Typography className={classes.secondaryHeading}>
-                        Deliver to home
+                        {deliveryText}
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                        diam eros in elit. Pellentesque convallis laoreet laoreet.
-                    </Typography>
+                    <DeliveryAddress onDeliveryAddressChange={setDeliveryText}/>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'paymentOptions'} onChange={handleChange('paymentOptions')}>
@@ -74,14 +75,11 @@ export default function PaymentAndDeliverySummary({totalValue, cartData}) {
                 >
                     <Typography className={classes.heading}><Payment/></Typography>
                     <Typography className={classes.secondaryHeading}>
-                        Pay using Credit Card
+                        {paymentText}
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                        vitae egestas augue. Duis vel est augue.
-                    </Typography>
+                    <PaymentOptions onPaymentTextChange={setPaymentText}/>
                 </AccordionDetails>
             </Accordion>
         </div>
