@@ -159,7 +159,7 @@ const CartItemDisplay = forwardRef(({
         return <Redirect
             to={{
                 pathname: "/payment",
-                state: { property_id: 900 }
+                state: {totalValue, cartData: JSON.stringify(cartData)}
             }}/>
     }
     return (

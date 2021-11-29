@@ -25,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PaymentAndDeliverySummary({totalValue, cartData}) {
+export default function PaymentAndDeliverySummary({location}) {
+    let {totalValue, cartData} = location.state;
+    cartData = JSON.parse(cartData);
     const classes = useStyles();
     const [expanded, setExpanded] = useState('');
     const [deliveryText, setDeliveryText] = useState('Select Delivery Location');
