@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '2em'
     },
+    details: {
+        flexWrap: "wrap"
+    },
     heading: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
@@ -23,10 +26,24 @@ const useStyles = makeStyles((theme) => ({
         fontSize: theme.typography.pxToRem(15),
         color: theme.palette.text.secondary,
     },
+    orderDetails: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "end",
+        width: "100%"
+    }
 }));
 
 export default function PaymentAndDeliverySummary({location}) {
-    let {totalValue, cartData} = location.state;
+    let {cartValue, cartData} = location.state;
+    const formatter = new Intl.NumberFormat('en-in', {
+        style: 'currency',
+        currency: 'INR',
+    });
+    let tax = 0.18 * cartValue;
+    let deliveryCharges = 15;
+    let totalValue = tax + cartValue + deliveryCharges;
+    cartValue = formatter.format(cartValue);
     cartData = JSON.parse(cartData);
     const classes = useStyles();
     const [expanded, setExpanded] = useState('');
@@ -48,10 +65,16 @@ export default function PaymentAndDeliverySummary({location}) {
                     id="orderSummary-header"
                 >
                     <Typography className={classes.heading}><Receipt/></Typography>
-                    <Typography className={classes.secondaryHeading}>Pay {totalValue}</Typography>
+                    <Typography className={classes.secondaryHeading}>Pay {formatter.format(totalValue)}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails className={classes.details}>
                     <OrderSummary cartData={cartData}/>
+                    <div className={classes.orderDetails}>
+                        <span>Cart Value: {cartValue}</span>
+                        <span>Tax: {formatter.format(tax)}</span>
+                        <span>Delivery Charges: {formatter.format(deliveryCharges)}</span>
+                        <span>Total Value: {formatter.format(totalValue)}</span>
+                    </div>
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'addressSummary'} onChange={handleChange('addressSummary')}>

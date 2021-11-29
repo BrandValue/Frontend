@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
-                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setRedirect) {
+                      setOnDelete, onCartItemDelete, cartValue, setRedirect) {
     return (
         <>
             <div className={classes.modalHeader}>
@@ -94,10 +94,6 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
                     cartLength ? (
                         <>
                             <div className={`${classes.bottomRow} ${classes.bold}`}>Cart Total: {cartValue}</div>
-                            <div className={`${classes.bottomRow} ${classes.bold}`}>Delivery
-                                Charges: {deliveryCharges}</div>
-                            <div className={`${classes.bottomRow} ${classes.bold}`}>Tax: {tax}</div>
-                            <div className={`${classes.bottomRow} ${classes.bold}`}>Total: {totalValue}</div>
                         </>
                     ) : ('')
                 }
@@ -112,7 +108,7 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
                         }}
                         disabled={!cartLength}>
                     {
-                        cartLength ? (`Pay ${totalValue}`) : ('Checkout')
+                        ('Checkout')
                     }
                 </Button>
             </div>
@@ -136,37 +132,30 @@ const CartItemDisplay = forwardRef(({
     const [modalStyle] = useState(getModalStyle());
     const [onDelete, setOnDelete] = useState(false);
     const [redirect, setRedirect] = useState(false);
-    let tax = 0.18 * cartValue;
     document.title = `Let's eat`;
-    let deliveryCharges = 15;
+    useEffect(() => {
+        setCartLength(cartData.length);
+        setCartValue(() => getCartValue());
+        return onClose;
+    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue, onClose]);
+    const classes = useStyles();
     const formatter = new Intl.NumberFormat('en-in', {
         style: 'currency',
         currency: 'INR',
     });
-    let totalValue = tax + cartValue + deliveryCharges;
-    totalValue = formatter.format(totalValue);
-    tax = formatter.format(tax);
-    deliveryCharges = formatter.format(deliveryCharges);
     cartValue = formatter.format(cartValue);
-    useEffect(() => {
-        setCartLength(cartData.length);
-        setCartValue(getCartValue());
-        return onClose;
-    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue, onClose]);
-    const classes = useStyles();
     if (redirect) {
         return <Redirect
             to={{
                 pathname: "/payment",
-                state: {totalValue, cartData: JSON.stringify(cartData)}
+                state: {cartValue, cartData: JSON.stringify(cartData)}
             }}/>
     }
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1" id={'modalParent'}>
             {
                 showCartView(classes, onClose, cartLength, cartData,
-                    onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
-                    totalValue, cartValue, setRedirect)
+                    onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, cartValue, setRedirect)
             }
         </div>
     );
