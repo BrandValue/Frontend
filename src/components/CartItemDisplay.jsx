@@ -110,9 +110,6 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
                 <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
                         onClick={() => {
                             setRedirect(() => true);
-                            setTimeout(() => {
-                                onClose()
-                            });
                         }}
                         disabled={!cartLength}>
                     {
@@ -155,7 +152,8 @@ const CartItemDisplay = forwardRef(({
     useEffect(() => {
         setCartLength(cartData.length);
         setCartValue(getCartValue());
-    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue]);
+        return onClose;
+    }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue, onClose]);
     const classes = useStyles();
     if (redirect) {
         return <Redirect

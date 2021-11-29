@@ -88,11 +88,12 @@ function TopRow() {
         });
     }, []);
     useEffect(() => {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             const texts = ['Hungry?', 'Try out today\'s special.', 'Don\'t want to cook?', 'No time for cooking?'];
             const idx = Math.floor((Math.random() * 10) % texts.length);
             setText(texts[idx]);
         }, 10000);
+        return clearInterval(intervalId);
     }, []);
     const btn = (id) => {
         setTileData(tileData.filter((tile, idx, arr) => {
