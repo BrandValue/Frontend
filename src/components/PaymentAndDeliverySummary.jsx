@@ -12,7 +12,7 @@ import PaymentOptions from "./PaymentOptions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
+        marginTop: '2em'
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -40,7 +40,7 @@ export default function PaymentAndDeliverySummary({location}) {
     }
 
     return (
-        <div className={classes.root}>
+        <div className={`${classes.root} container`}>
             <Accordion expanded={expanded === 'orderSummary'} onChange={handleChange('orderSummary')}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}

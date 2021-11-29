@@ -6,7 +6,6 @@ import WallImage from "../assets/backgroundImages/wall-background.jpg";
 import {Button, IconButton} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import {Redirect} from "react-router-dom";
-import PaymentOptions from "./PaymentOptions";
 
 function getModalStyle() {
     return {

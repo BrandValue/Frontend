@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PaymentAndDeliverySummary from "./components/PaymentAndDeliverySummary";
+import Header from "./components/Header";
 
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact={true} path="/payment" render={(props) => <PaymentAndDeliverySummary {...props}/>}/>
+            <Route exact={true} path="/payment"
+                   render={(props) => <><Header/><PaymentAndDeliverySummary {...props}/></>}/>
             <Route exact={true} path="/" render={(props) => <App/>}/>
         </Switch>
     </BrowserRouter>,
