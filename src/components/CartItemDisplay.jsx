@@ -5,6 +5,8 @@ import Neon from "./NeonEffect/Neon";
 import WallImage from "../assets/backgroundImages/wall-background.jpg";
 import {Button, IconButton} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import {Redirect} from "react-router-dom";
+import PaymentOptions from "./PaymentOptions";
 
 function getModalStyle() {
     return {
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
-                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue) {
+                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setRedirect) {
     return (
         <>
             <div className={classes.modalHeader}>
@@ -107,6 +109,10 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
                 </Button>
                 <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
                         onClick={() => {
+                            setRedirect(() => true);
+                            setTimeout(() => {
+                                onClose()
+                            });
                         }}
                         disabled={!cartLength}>
                     {
@@ -133,6 +139,7 @@ const CartItemDisplay = forwardRef(({
                                     ref) => {
     const [modalStyle] = useState(getModalStyle());
     const [onDelete, setOnDelete] = useState(false);
+    const [redirect, setRedirect] = useState(false);
     let tax = 0.18 * cartValue;
     document.title = `Let's eat`;
     let deliveryCharges = 15;
@@ -150,12 +157,19 @@ const CartItemDisplay = forwardRef(({
         setCartValue(getCartValue());
     }, [onDelete, cartData.length, setCartLength, setCartValue, getCartValue]);
     const classes = useStyles();
+    if (redirect) {
+        return <Redirect
+            to={{
+                pathname: "/payment",
+                state: { property_id: 900 }
+            }}/>
+    }
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1" id={'modalParent'}>
             {
                 showCartView(classes, onClose, cartLength, cartData,
                     onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
-                    totalValue, cartValue)
+                    totalValue, cartValue, setRedirect)
             }
         </div>
     );

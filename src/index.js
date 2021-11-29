@@ -4,9 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import PaymentOptions from "./components/PaymentOptions";
 
 ReactDOM.render(
-    <App/>,
+    <BrowserRouter>
+        <Switch>
+            <Route exact={true} path="/payment" render={(props) => <PaymentOptions {...props}/>}/>
+            <Route exact={true} path="/" render={(props) => <App/>}/>
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
