@@ -5,8 +5,6 @@ import Neon from "./NeonEffect/Neon";
 import WallImage from "../assets/backgroundImages/wall-background.jpg";
 import {Button, IconButton} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import {ArrowBack} from "@material-ui/icons";
-import PaymentAndDeliverySummary from "./PaymentAndDeliverySummary";
 
 function getModalStyle() {
     return {
@@ -69,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
-                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState) {
+                      setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue) {
     return (
         <>
             <div className={classes.modalHeader}>
@@ -109,46 +107,11 @@ function showCartView(classes, onClose, cartLength, cartData, onSubBtnClick, onA
                 </Button>
                 <Button className={classes.leftMargin} variant={"contained"} size="small" color="primary"
                         onClick={() => {
-                            setViewState('payment');
                         }}
                         disabled={!cartLength}>
                     {
                         cartLength ? (`Pay ${totalValue}`) : ('Checkout')
                     }
-                </Button>
-            </div>
-        </>
-    )
-}
-
-function showPaymentView(classes, onClose, cartLength, cartData, onSubBtnClick, onAddBtnClick,
-                         setOnDelete, onCartItemDelete, deliveryCharges, tax, totalValue, cartValue, setViewState) {
-    return (
-        <>
-            <div className={classes.modalHeader}>
-                <IconButton className={classes.secondaryBackground} onClick={() => {
-                    setViewState('cart');
-                }}><ArrowBack/></IconButton>
-                <span className={classes.bold}>Order Summary</span>
-                <IconButton className={classes.secondaryBackground}
-                            onClick={onClose}><CloseIcon/></IconButton>
-            </div>
-            <div id="modal-description">
-                {
-                    cartLength ? (
-                        <PaymentAndDeliverySummary totalValue={totalValue} cartData={cartData}/>
-                    ) : (<div className={classes.noItems}><Neon text={"No item in cart"}/></div>)
-
-                }
-            </div>
-            <div className={classes.bottomRow}>
-                <Button variant="outlined" size="small" color="secondary" onClick={onClose}>
-                    Cancel
-                </Button>
-                <Button className={classes.leftMargin} variant={"contained"} size="small"
-                        color="primary"
-                        disabled={!cartLength}>
-                    Confirm
                 </Button>
             </div>
         </>
@@ -166,8 +129,6 @@ const CartItemDisplay = forwardRef(({
                                         cartValue,
                                         setCartValue,
                                         getCartValue,
-                                        viewState,
-                                        setViewState
                                     },
                                     ref) => {
     const [modalStyle] = useState(getModalStyle());
@@ -192,14 +153,9 @@ const CartItemDisplay = forwardRef(({
     return (
         <div style={modalStyle} className={classes.root} ref={ref} tabIndex="-1" id={'modalParent'}>
             {
-                viewState === 'cart' ? showCartView(classes, onClose, cartLength, cartData,
+                showCartView(classes, onClose, cartLength, cartData,
                     onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
-                    totalValue, cartValue, setViewState)
-                    :
-                    showPaymentView(classes, onClose, cartLength, cartData,
-                        onSubBtnClick, onAddBtnClick, setOnDelete, onCartItemDelete, deliveryCharges, tax,
-                        totalValue, cartValue, setViewState)
-
+                    totalValue, cartValue)
             }
         </div>
     );
